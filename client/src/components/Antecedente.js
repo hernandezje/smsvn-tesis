@@ -11,7 +11,8 @@ class Antecedente extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this); // Enlazamos el manejador del botón
-  
+    this.handleModify = this.handleModify.bind(this); // Manejador para el botón Modificar
+
   }
   onSubmit(e) {
     e.preventDefault();
@@ -47,9 +48,19 @@ class Antecedente extends Component {
     } 
   }
 
+  handleModify() {
+    // Redirige a una página de edición, enviando los datos del usuario
+    const { antecedentes } = this.state;
+    console.log("envia",antecedentes);
+    this.props.history.push({
+      pathname: `/editAntecedente`,
+      state: { antecedentes }, // Pasa el usuario actual al formulario de edición
+    });
+  }
+
   render() {
     const { antecedentes, error } = this.state; // Extraemos los datos del estado
-
+    console.log("trae",antecedentes)
 // Si NO hay datos
     if (!antecedentes) {
       
@@ -116,6 +127,12 @@ class Antecedente extends Component {
             </tr>
           </tbody>
         </table>
+         {/* Botones Modificar */}
+         <div className="mt-3">
+          <button className="btn btn-primary mr-2" onClick={this.handleModify}>
+            Modificar
+          </button>
+        </div>
       </div>
     );
   }

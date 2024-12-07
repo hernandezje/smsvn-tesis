@@ -11,6 +11,8 @@ class Neonato extends Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this); // Enlazamos el manejador del botón
+    this.handleModify = this.handleModify.bind(this); // Manejador para el botón Modificar
+  
   }
   onSubmit(e) {
     e.preventDefault();
@@ -44,6 +46,15 @@ class Neonato extends Component {
         });
     } 
   }
+
+  handleModify() {
+    // Redirige a una página de edición, enviando los datos del usuario
+    const { neonato } = this.state;
+    this.props.history.push({
+      pathname: `/editNeonato`,
+      state: { neonato }, // Pasa el usuario actual al formulario de edición
+    });
+  }
   
   formatDate(dateString) {
     // Convertir la cadena de fecha a un objeto Date
@@ -62,8 +73,6 @@ class Neonato extends Component {
 
   render() {
     const { neonato, error } = this.state; // Extraemos los datos del estado
-
-// Si NO hay datos
     if (!neonato) {
       
       return (        
@@ -121,6 +130,12 @@ class Neonato extends Component {
             </tr>
           </tbody>
         </table>
+         {/* Botones Modificar */}
+         <div className="mt-3">
+          <button className="btn btn-primary mr-2" onClick={this.handleModify}>
+            Modificar
+          </button>
+        </div>
       </div>
     );
   }

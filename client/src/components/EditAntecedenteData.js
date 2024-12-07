@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { createAntecedentes } from "./UserFunctions";
+import axios from "axios";
 
-class NewAntecedentes extends Component {
-  constructor() {
-    super();
+class EditAntecedente extends Component {
+  constructor(props) {
+    super(props);
+    const { antecedentes } = this.props.location.state || {};
     this.state = {
-      antecedentes: {
+      antecedentes: antecedentes || {
         Adicciones: "NO",
         Descripcion_Adic: "",
         Patologias: "NO",
@@ -17,11 +18,12 @@ class NewAntecedentes extends Component {
         Vacunas: "NO",
         Descripcion_Vac: "",
       },
-      errors: {}, // Para manejar errores de validación
+      errors: {}, // Para manejar errores
+      mensaje: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.validateFields = this.validateFields.bind(this);
   }
 
@@ -46,81 +48,84 @@ class NewAntecedentes extends Component {
     const { antecedentes } = this.state;
     const errors = {};
 
-    // Validar que las descripciones estén llenas si el valor del select es "SI"
     if (antecedentes.Adicciones === "SI" && !antecedentes.Descripcion_Adic.trim()) {
-      errors.Descripcion_Adic = "Este campo es obligatorio";
+      errors.Descripcion_Adic = "Este campo es obligatorio.";
     }
     if (antecedentes.Patologias === "SI" && !antecedentes.Descripcion_Pat.trim()) {
-      errors.Descripcion_Pat = "Este campo es obligatorio";
+      errors.Descripcion_Pat = "Este campo es obligatorio.";
     }
     if (antecedentes.Recibe_Tratamiento === "SI" && !antecedentes.Descripcion_Tratam.trim()) {
-      errors.Descripcion_Tratam = "Este campo es obligatorio";
+      errors.Descripcion_Tratam = "Este campo es obligatorio.";
     }
     if (antecedentes.Alergias === "SI" && !antecedentes.Descripcion_Aler.trim()) {
-      errors.Descripcion_Aler = "Este campo es obligatorio";
+      errors.Descripcion_Aler = "Este campo es obligatorio.";
     }
     if (antecedentes.Vacunas === "SI" && !antecedentes.Descripcion_Vac.trim()) {
-      errors.Descripcion_Vac = "Este campo es obligatorio";
+      errors.Descripcion_Vac = "Este campo es obligatorio.";
     }
 
     this.setState({ errors });
-    return Object.keys(errors).length === 0; // Retorna `true` si no hay errores
+    return Object.keys(errors).length === 0; // Retorna `true` si no hay errores.
   }
 
-  onSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
     if (this.validateFields()) {
       const { antecedentes } = this.state;
 
-      createAntecedentes(antecedentes).then(() => {
-        this.props.history.push(`/antecedentes`);
-      });
+      try {
+        const response = await axios.put(
+          `http://localhost:5000/users/editAntecedenteMedico/${antecedentes.idAntecedente_Medico}`,
+          antecedentes,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        this.setState({ mensaje: "Datos actualizados correctamente.", errors: {} });
+        this.props.history.push("/antecedentes");
+      } catch (error) {
+        this.setState({ mensaje: null, errors: { general: "Error al actualizar los datos." } });
+      }
     }
   }
 
   render() {
-    const { antecedentes, errors } = this.state;
+    const { antecedentes, errors, mensaje } = this.state;
 
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-8 mt-5 mx-auto">
-            <form noValidate onSubmit={this.onSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal">Registrar antecedentes</h1>
+        <h1 className="h3 mb-3 font-weight-normal">Editar Antecedente Médico</h1>
+        {mensaje && <div className="alert alert-success">{mensaje}</div>}
+        {errors.general && <div className="alert alert-danger">{errors.general}</div>}
 
-              {/* Adicciones */}
-              <div className="form-group">
-                <label htmlFor="Adicciones">El progenitor materno sufrió o sufre de adicciones?</label>
-                <select
-                  className="form-control"
-                  name="Adicciones"
-                  value={antecedentes.Adicciones}
-                  onChange={this.handleChange}
-                >
-                  <option value="NO">NO</option>
-                  <option value="SI">SI</option>
-                </select>
-              </div>
-              {antecedentes.Adicciones === "SI" && (
+        <form onSubmit={this.handleSubmit}>
+          {/* Adicciones */}
+          <div className="form-group">
+            <label>¿El paciente presenta adicciones?</label>
+            <select
+              className="form-control"
+              name="Adicciones"
+              value={antecedentes.Adicciones}
+              onChange={this.handleChange}
+            >
+              <option value="NO">NO</option>
+              <option value="SI">SI</option>
+            </select>
+            {errors.Descripcion_Adic && <small className="text-danger">{errors.Descripcion_Adic}</small>}
+          </div>
+          {antecedentes.Adicciones === "SI" && (
+            <div className="form-group">
+              <label>Descripción</label>
+              <input
+                type="text"
+                className="form-control"
+                name="Descripcion_Adic"
+                value={antecedentes.Descripcion_Adic || ""}
+                onChange={this.handleChange}
+              />
+            </div>
+          )}
+          {/* Patologías */}
                 <div className="form-group">
-                  <label htmlFor="Descripcion_Adic">Descripción de Adicciones</label>
-                  <input
-                    type="text"
-                    className={`form-control ${errors.Descripcion_Adic ? "is-invalid" : ""}`}
-                    name="Descripcion_Adic"
-                    placeholder="Describa la/las adicciones..."
-                    value={antecedentes.Descripcion_Adic}
-                    onChange={this.handleChange}
-                  />
-                  {errors.Descripcion_Adic && (
-                    <div className="invalid-feedback">{errors.Descripcion_Adic}</div>
-                  )}
-                </div>
-              )}
-
-              {/* Patologías */}
-              <div className="form-group">
                 <label htmlFor="Patologias">El neonato sufre alguna patología médica?</label>
                 <select
                   className="form-control"
@@ -238,16 +243,13 @@ class NewAntecedentes extends Component {
                   )}
                 </div>
               )}
-
-              <button type="submit" className="btn btn-lg btn-primary btn-block">
-                Cargar Antecedentes
-              </button>
-            </form>
-          </div>
-        </div>
+          <button type="submit" className="btn btn-primary">
+            Guardar Cambios
+          </button>
+        </form>
       </div>
     );
   }
 }
 
-export default NewAntecedentes;
+export default EditAntecedente;

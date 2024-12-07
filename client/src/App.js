@@ -15,6 +15,9 @@ import Historial from "./components/Historial";
 import UsuarioData from "./components/UsuarioData";
 import EditUsuario from "./components/EditUsuarioData";
 import Alertas from "./components/Alertas";
+import EditNeonato from "./components/EditNeonatoData";
+import EditAntecedenteData from "./components/EditAntecedenteData";
+
 
 class App extends Component {
   render() {
@@ -36,6 +39,8 @@ class App extends Component {
             <Route exact path="/usuarioData" component={UsuarioData} /> 
             <Route exact path="/editUsuario" component={EditUsuario} />
             <Route exact path="/alertas" component={Alertas} />
+            <Route exact path="/editNeonato" component={EditNeonato} />
+            <Route exact path="/editAntecedente" component={EditAntecedenteData} />
           </div>
         </div>
       </Router>

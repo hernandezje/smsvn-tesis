@@ -292,3 +292,54 @@ export const getAlertasFiltradas = async (fechaInicio, fechaFin) => {
   }
 };
 
+// Función para actualizar datos de un neonato
+export const updateNeonato = async (id, updatedData) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    if (!token) {
+      throw new Error("Token no encontrado. Inicie sesión nuevamente.");
+    }
+
+    const response = await axios.put(
+      `http://localhost:5000/users/editNeonato/${id}`, // URL con el ID
+      updatedData, // Datos enviados en el cuerpo de la solicitud
+      {
+        headers: {
+          "Content-Type": "application/json", // Encabezado para JSON
+          Authorization: `Bearer ${token}`, // Encabezado de autorización
+        },
+      }
+    );
+
+    return response.data; // Respuesta del servidor
+  } catch (err) {
+    console.error("Error al actualizar los datos del neonato:", err);
+    throw err;
+  }
+};
+
+// Función para actualizar datos de un neonato
+export const updateAntecedenteMedico = async (id, updatedData) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    if (!token) {
+      throw new Error("Token no encontrado. Inicie sesión nuevamente.");
+    }
+
+    const response = await axios.put(
+      `http://localhost:5000/users/editAntecedenteMedico/${id}`, // URL con el ID
+      updatedData, // Datos enviados en el cuerpo de la solicitud
+      {
+        headers: {
+          "Content-Type": "application/json", // Encabezado para JSON
+          Authorization: `Bearer ${token}`, // Encabezado de autorización
+        },
+      }
+    );
+
+    return response.data; // Respuesta del servidor
+  } catch (err) {
+    console.error("Error al actualizar los datos del antecedenteMedico:", err);
+    throw err;
+  }
+};

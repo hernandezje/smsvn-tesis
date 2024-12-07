@@ -78,7 +78,7 @@ const getAllContacts = async () => {
 const getNeonatoData = async () => {
   const query = `
   SELECT  
-  DNI, Nombre_Apellido, Sexo, Fecha_Nac, Peso, Altura, Grupo_Sanguineo, Condicion_Nac 
+  idLactante, DNI, Nombre_Apellido, Sexo, Fecha_Nac, Peso, Altura, Grupo_Sanguineo, Condicion_Nac 
   FROM lactante LIMIT 1
   `;
   try {
@@ -112,8 +112,8 @@ const createNeonato = (neonatoData, callback) => {
 const getAntecedentesData = async () => {
   const query = `
   SELECT  
-  Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac
-  FROM antecedente_medico
+  idAntecedente_Medico, Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac
+  FROM antecedente_medico LIMIT 1
   `;
   try {
     const [results] = await db.promise().query(query);
@@ -126,7 +126,7 @@ const getAntecedentesData = async () => {
 
 // Función para cargar los antecedentes del neonato en la base de datos
 const createAntecedentes = (antecedentesData, callback) => {
-  const {  Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac } = antecedentesData;
+  const { Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac } = antecedentesData;
   const query = `
     INSERT INTO antecedente_medico 
     ( Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac) 
@@ -325,6 +325,74 @@ const getAlertasFiltradas = (fechaInicio, fechaFin, callback) => {
   });
 };
 
+// actualizar datos de un neonato
+const updateNeonato = async (idLactante, neonatoData) => {
+  const { DNI, Nombre_Apellido, Sexo, Fecha_Nac, Peso, Altura, Grupo_Sanguineo, Condicion_Nac } = neonatoData;
+
+  const query = `
+    UPDATE lactante 
+    SET 
+      DNI = ?, 
+      Nombre_Apellido = ?, 
+      Sexo = ?, 
+      Fecha_Nac = ?, 
+      Peso = ?, 
+      Altura = ?, 
+      Grupo_Sanguineo = ?, 
+      Condicion_Nac = ?
+    WHERE idLactante = ?
+  `;
+
+  return new Promise((resolve, reject) => {
+    db.query(query, [DNI, Nombre_Apellido, Sexo, Fecha_Nac, Peso, Altura, Grupo_Sanguineo, Condicion_Nac, idLactante], (err, result) => {
+      if (err) {
+        console.error("Error al actualizar datos del neonato:", err);
+        reject(err);
+      } else if (result.affectedRows === 0) {
+        resolve(null); // Si no se encontró el neonato
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+// Actualizar datos de antecedentes médicos
+const updateAntecedenteMedico = async (idAntecedente_Medico, antecedenteData) => {
+  const { Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac } = antecedenteData;
+
+  const query = `
+    UPDATE antecedente_medico 
+    SET 
+      Adicciones = ?, 
+      Descripcion_Adic = ?, 
+      Patologias = ?, 
+      Descripcion_Pat = ?, 
+      Recibe_Tratamiento = ?, 
+      Descripcion_Tratam = ?, 
+      Alergias = ?, 
+      Descripcion_Aler = ?, 
+      Vacunas = ?, 
+      Descripcion_Vac = ?
+    WHERE idAntecedente_Medico = ?
+  `;
+
+  return new Promise((resolve, reject) => {
+    db.query( query, [ Adicciones, Descripcion_Adic, Patologias, Descripcion_Pat, Recibe_Tratamiento, Descripcion_Tratam, Alergias, Descripcion_Aler, Vacunas, Descripcion_Vac, idAntecedente_Medico ], 
+      (err, result) => {
+        if (err) {
+          console.error("Error al actualizar los datos del antecedente médico:", err);
+          reject(err);
+        } else if (result.affectedRows === 0) {
+          resolve(null); // Si no se encontró el antecedente médico
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
 
 module.exports = { createContact, createUser, findUserByUsuario, getAllContacts, getNeonatoData, getAntecedentesData, createNeonato, createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword,
-  deleteUser, getAlertasFiltradas, };
+  deleteUser, getAlertasFiltradas, updateNeonato, updateAntecedenteMedico};

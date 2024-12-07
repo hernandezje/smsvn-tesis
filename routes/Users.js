@@ -4,7 +4,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { createContact, createUser, findUserByUsuario, getAllContacts, getNeonatoData, getAntecedentesData, createNeonato, 
-  createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword, deleteUser, getAlertasFiltradas  } = require("../models/User");
+  createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword, deleteUser, getAlertasFiltradas, 
+  updateNeonato, updateAntecedenteMedico  } = require("../models/User");
 
 process.env.SECRET_KEY = "secret";
 
@@ -299,5 +300,44 @@ Users.get("/alertas", (req, res) => {
   });
 });
 
+
+// Ruta para actualizar datos del neonato
+Users.put("/editNeonato/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const neonatoData = req.body;
+
+    const result = await updateNeonato(id, neonatoData);
+
+    if (!result) {
+      return res.status(404).json({ error: "Neonato no encontrado." });
+    }
+
+    res.json({ message: "Datos del neonato actualizados correctamente." });
+  } catch (err) {
+    console.error("Error al actualizar datos del neonato:", err);
+    res.status(500).json({ error: "Error interno del servidor." });
+  }
+});
+
+
+// Ruta para actualizar datos del neonato
+Users.put("/editAntecedenteMedico/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const antecedenteMedico = req.body;
+
+    const result = await updateAntecedenteMedico(id, antecedenteMedico);
+
+    if (!result) {
+      return res.status(404).json({ error: "Neonato no encontrado." });
+    }
+
+    res.json({ message: "Datos del neonato actualizados correctamente." });
+  } catch (err) {
+    console.error("Error al actualizar datos del neonato:", err);
+    res.status(500).json({ error: "Error interno del servidor." });
+  }
+});
 
 module.exports = Users;
