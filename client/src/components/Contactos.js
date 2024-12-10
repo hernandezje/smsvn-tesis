@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class Profile extends Component {
+class Contactos extends Component {
   constructor() {
     super();
     this.state = {
@@ -38,20 +38,19 @@ class Profile extends Component {
 
   render() {
     return (
-      
-      <div className="container">
-        <div className="jumbotron mt-5">
-          <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">Contactos</h1>
+      <div className="container-fluid">
+      <h1 className="h3 mb-3 font-weight-normal">Contactos</h1>
+    <div className="col-sm-8 mx-auto">
           </div>
-          <table className="table table-bordered table-hover">
-            <thead className="thead-dark">
+          <div className="table-responsive">
+      <table className="table table-sm">
+        <thead className="thead">
               <tr>
-                <th>DNI</th>
-                <th>Nombre y Apellido</th>
-                <th>Teléfono</th>
-                <th>Parentesco</th>
-                <th>Dirección</th>
+                <th scope="col" className="cb">DNI</th>
+                <th scope="col" className="cb">Nombre</th>
+                <th scope="col" className="cb">Tel.</th>
+                <th scope="col" className="cb">Parent.</th>
+                <th scope="col" className="cb">Direc.</th>
               </tr>
             </thead>
             <tbody>
@@ -74,10 +73,10 @@ class Profile extends Component {
               )}
             </tbody>
           </table>
+          </div>
         </div>
-      </div>
     );
   }
 }
 
-export default Profile;
+export default Contactos;

@@ -81,18 +81,18 @@ class Historial extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="jumbotron mt-5">
-          <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">Historial</h1>
-          </div>
-          <table className="table table-bordered table-hover">
-            <thead className="thead-dark">
+      <div className="container-fluid">
+  <h1 className="h3 mb-3 font-weight-normal">Historial</h1>
+    <div className="col-sm-8 mx-auto">
+    </div>
+    <div className="table-responsive">
+      <table className="table-sm">
+        <thead className="thead">
               <tr>
-                <th>Fecha_Inicio</th>
-                <th>Fecha_Fin</th>
-                <th>Estado</th>
-                <th>Ver en detalle</th>
+                <th scope="col" className="text-center">Fecha Inic.</th>
+                <th scope="col" className="text-center">Fecha Fin</th>
+                <th scope="col" className="text-center">Estado</th>
+                <th scope="col" className="text-center">Alertas</th>
               </tr>
             </thead>
             <tbody>
@@ -106,7 +106,7 @@ class Historial extends Component {
                     {historial.Estado !== "Normal" && (
                       
                     <button
-                    className="btn btn-warning"
+                    className="btn btn-sm btn-primary"
                     onClick={() =>
                       this.handleAlertRedirect(
                         this.formatDateForSend(historial.Fecha_Inicio),
@@ -114,7 +114,7 @@ class Historial extends Component {
                       )
                     }
                   >
-                    Ver Alerta
+                    Ver
                   </button>
                   )}
                     </td>

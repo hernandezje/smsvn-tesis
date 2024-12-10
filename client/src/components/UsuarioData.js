@@ -120,11 +120,11 @@ class UsuarioData extends Component {
   }
 
   render() {
-    const { usuario, error, password, showModal, showMessageModal, message } = this.state; // Extraemos los datos del estado
+    const { usuario, password, showModal, showMessageModal, message } = this.state; // Extraemos los datos del estado
     console.log("clave:", usuario.Clave);
     return (
-      <div className="container">
-        <h2>Datos del usuario</h2>
+      <div className="container-fluid">
+        <h1 className="h3 mb-3 font-weight-normal">Datos del usuario</h1>
         <table className="table">
           <tbody>
             <tr>

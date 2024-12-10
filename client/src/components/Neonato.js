@@ -75,9 +75,10 @@ class Neonato extends Component {
     const { neonato, error } = this.state; // Extraemos los datos del estado
     if (!neonato) {
       
-      return (        
+      return (     
+        <div className="container-fluid">  
             <div>
-              <p>Sin datos del neonato!</p>
+              <h4 className="SinDatos">Sin datos del neonato!</h4>
               <button
             type="button"
             className="btn btn-lg btn-primary btn-block"
@@ -87,13 +88,14 @@ class Neonato extends Component {
               </button>
               
             </div>
+          </div>
           ); // Mensaje si no hay datos
     }
 
     // Si hay datos
     return (
-      <div className="container">
-        <h2>Datos del neonato</h2>
+      <div className="container-fluid">
+        <h1 className="h3 mb-3 font-weight-normal">Datos del neonato</h1>
         <table className="table">
           <tbody>
             <tr>

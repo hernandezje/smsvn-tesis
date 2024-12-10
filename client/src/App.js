@@ -5,7 +5,6 @@ import Navbar from "./components/Navbar";
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Profile from "./components/Profile";
 import Neonato from "./components/Neonato";
 import Contactos from "./components/Contactos";
 import Antecedente from "./components/Antecedente";
@@ -17,6 +16,8 @@ import EditUsuario from "./components/EditUsuarioData";
 import Alertas from "./components/Alertas";
 import EditNeonato from "./components/EditNeonatoData";
 import EditAntecedenteData from "./components/EditAntecedenteData";
+import EstadoActual from "./components/EstadoActual";
+import Reporte from "./components/Reporte";
 
 
 class App extends Component {
@@ -29,7 +30,6 @@ class App extends Component {
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/profile" component={Profile} />
             <Route exact path="/contactos" component={Contactos} />
             <Route exact path="/neonato" component={Neonato} />
             <Route exact path="/antecedentes" component={Antecedente} />
@@ -41,6 +41,8 @@ class App extends Component {
             <Route exact path="/alertas" component={Alertas} />
             <Route exact path="/editNeonato" component={EditNeonato} />
             <Route exact path="/editAntecedente" component={EditAntecedenteData} />
+            <Route exact path="/estadoActual" component={EstadoActual} />
+            <Route exact path="/reporte" component={Reporte} />
           </div>
         </div>
       </Router>

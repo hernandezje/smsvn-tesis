@@ -394,5 +394,70 @@ const updateAntecedenteMedico = async (idAntecedente_Medico, antecedenteData) =>
 };
 
 
+// para generar reporte
+const getReportData = async () => {
+    try {
+      // Primera consulta: Lactante y Antecedente Médico
+      const query1 = `
+        SELECT 
+          l.DNI, 
+          l.Nombre_Apellido, 
+          l.Sexo, 
+          l.Fecha_Nac, 
+          l.Peso, 
+          l.Altura, 
+          l.Grupo_Sanguineo, 
+          l.Condicion_Nac,
+          a.Adicciones, 
+          a.Descripcion_Adic, 
+          a.Patologias, 
+          a.Descripcion_Pat, 
+          a.Recibe_Tratamiento, 
+          a.Descripcion_Tratam, 
+          a.Alergias, 
+          a.Descripcion_Aler, 
+          a.Vacunas, 
+          a.Descripcion_Vac
+        FROM 
+          lactante l
+        LEFT JOIN 
+          antecedente_medico a ON l.idLactante = a.Lactante_idLactante;
+      `;
+  
+      // Segunda consulta: Historial, Alerta y Sensor
+      const query2 = `
+        SELECT 
+          h.Fecha_Inicio, 
+          h.Fecha_Fin, 
+          h.Estado, 
+          al.idAlerta, 
+          al.Valor_Detectado, 
+          al.Fecha_Hora, 
+          al.Gravedad, 
+          al.Sensor_idSensor,
+          s.Tipo_Sensor
+        FROM 
+          historial h
+        LEFT JOIN 
+          alerta al ON h.Alerta_idAlerta = al.idAlerta
+        LEFT JOIN 
+          sensor s ON al.Sensor_idSensor = s.idSensor
+        WHERE 
+          h.Fecha_Inicio >= DATE_SUB(CURDATE(), INTERVAL 10 DAY);
+      `;
+  
+      // Ejecutar ambas consultas por separado
+      const [lactanteData] = await db.promise().query(query1);
+      const [historialData] = await db.promise().query(query2);
+  
+      // Combinar y retornar los resultados
+      return { lactanteData, historialData };
+    } catch (err) {
+      console.error("Error al obtener datos del reporte:", err.message);
+      throw err;
+    }
+  };
+
+
 module.exports = { createContact, createUser, findUserByUsuario, getAllContacts, getNeonatoData, getAntecedentesData, createNeonato, createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword,
-  deleteUser, getAlertasFiltradas, updateNeonato, updateAntecedenteMedico};
+  deleteUser, getAlertasFiltradas, updateNeonato, updateAntecedenteMedico, getReportData,};

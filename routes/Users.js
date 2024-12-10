@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const { createContact, createUser, findUserByUsuario, getAllContacts, getNeonatoData, getAntecedentesData, createNeonato, 
   createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword, deleteUser, getAlertasFiltradas, 
-  updateNeonato, updateAntecedenteMedico  } = require("../models/User");
+  updateNeonato, updateAntecedenteMedico, getReportData  } = require("../models/User");
 
 process.env.SECRET_KEY = "secret";
 
@@ -339,5 +339,23 @@ Users.put("/editAntecedenteMedico/:id", async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor." });
   }
 });
+
+
+// Ruta para generar el reporte
+Users.get("/generarReporte", async (req, res) => {
+  try {
+    const reportData = await getReportData();
+
+    if (!reportData || reportData.length === 0) {
+      return res.status(404).json({ message: "No se encontraron datos para el reporte." });
+    }
+
+    res.json({ reporte: reportData });
+  } catch (err) {
+    console.error("Error al generar el reporte:", err);
+    res.status(500).json({ error: "Error interno del servidor al generar el reporte." });
+  }
+});
+
 
 module.exports = Users;

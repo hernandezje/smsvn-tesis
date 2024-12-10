@@ -59,8 +59,8 @@ class EditUsuario extends Component {
     const { usuario, error, mensaje } = this.state;
 
     return (
-      <div className="container">
-        <h2>Editar Usuario</h2>
+      <div className="container-fluid">
+        <h1 className="h3 mb-3 font-weight-normal">Editar Usuario</h1>
         {error && <div className="alert alert-danger">{error}</div>}
         {mensaje && <div className="alert alert-success">{mensaje}</div>}
         <form onSubmit={this.handleSubmit}>
@@ -146,9 +146,14 @@ class EditUsuario extends Component {
               onChange={this.handleChange}
             />
           </div>
+          <div className="mt-3">
           <button type="submit" className="btn btn-primary">
             Guardar
           </button>
+          <button className="btn btn-danger" >
+            Cancelar
+          </button>
+        </div>
         </form>
       </div>
     );

@@ -50,26 +50,14 @@ class Register extends Component {
   }
 
   render() {
-    const Contacto = {
-      DNI: this.state.DNI,
-      Nombre_Apellido: this.state.Nombre_Apellido,
-      Telefono: this.state.Telefono,
-      Parentezco: this.state.Parentezco,
-      Progenitor: this.state.Progenitor,
-      Direccion: this.state.Direccion,
-      Usuario: this.state.Usuario,
-      Clave: this.state.Clave,
-      Email: this.state.Email,
-    };
-
-    const jsonPreview = { Contacto };
+    
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-md-8 mt-5 mx-auto">
             <form noValidate onSubmit={this.onSubmit}>
-              <h1 className="h3 mb-3 font-weight-normal">Register</h1>
+              <h1 className="h3 mb-3 font-weight-normal">Registro de Usuario</h1>
 
               {/* Sección para los datos de la tabla 'contacto' */}
               <div className="form-group">
@@ -174,20 +162,19 @@ class Register extends Component {
                   onChange={this.onChange}
                 />
               </div>
-
+              <div className="mt-3">
               <button
                 type="submit"
-                className="btn btn-lg btn-primary btn-block"
+                className="btn btn-primary mr-2"
               >
                 Registrar
               </button>
+              
+              <button className="btn btn-danger" >
+            Cancelar
+          </button>
+        </div>
             </form>
-
-            {/* Vista previa del JSON */}
-            <div className="mt-4">
-              <h3>Vista Previa del JSON:</h3>
-              <pre>{JSON.stringify(jsonPreview, null, 2)}</pre>
-            </div>
           </div>
         </div>
       </div>

@@ -59,14 +59,15 @@ class Antecedente extends Component {
   }
 
   render() {
-    const { antecedentes, error } = this.state; // Extraemos los datos del estado
+    const { antecedentes } = this.state; // Extraemos los datos del estado
     console.log("trae",antecedentes)
 // Si NO hay datos
     if (!antecedentes) {
       
-      return (        
+      return ( 
+        <div className="container-fluid">      
         <div>
-        <p>Sin datos del neonato!</p>
+        <h4 className="SinDatos">Sin datos de antecedentes medicos del neonato!</h4>
           <button
           type="button"
           className="btn btn-lg btn-primary btn-block"
@@ -76,13 +77,14 @@ class Antecedente extends Component {
           </button>
         
       </div>
+      </div> 
           ); // Mensaje si no hay datos
     }
 
  
     return (
-      <div className="container">
-        <h2>Datos de antecedentes médicos del neonato</h2>
+      <div className="container-fluid">
+        <h1 className="h3 mb-3 font-weight-normal">Datos de antecedentes médicos del neonato</h1>
         <table className="table">
           <tbody>
             <tr>

@@ -28,14 +28,14 @@ class Login extends Component {
 
     login(user).then(res => {
       if (res) {
-        this.props.history.push(`/profile`); // Redirige al perfil del usuario tras el login
+        this.props.history.push(`/estadoActual`); // Redirige al perfil del usuario tras el login
       }
     });
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-md-6 mt-5 mx-auto">
             <form noValidate onSubmit={this.onSubmit}>

@@ -52,21 +52,21 @@ class Alertas extends Component {
     const { alertas, errors } = this.state;
 
     return (
-      <div className="container">
-        <div className="jumbotron mt-5">
+      <div className="container-fluid">
+         <h1 className="h3 mb-3 font-weight-normal">Alertas Filtradas</h1>
           <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">Alertas Filtradas</h1>
           </div>
           {errors.message ? (
             <div className="alert alert-danger text-center">{errors.message}</div>
           ) : (
-            <table className="table table-bordered table-hover">
-              <thead className="thead-dark">
+            <div className="table-responsive">
+      <table className="table table-sm">
+        <thead className="thead">
                 <tr>
-                  <th>Fecha y Hora</th>
-                  <th>Tipo de Sensor</th>
-                  <th>Valor Detectado</th>
-                  <th>Gravedad</th>
+                  <th scope="col" className="cb">Fecha/Hora</th>
+                  <th scope="col" className="cb">Sensor</th>
+                  <th scope="col" className="cb">Medición</th>
+                  <th scope="col" className="cb">Gravedad</th>
                 </tr>
               </thead>
               <tbody>
@@ -78,6 +78,7 @@ class Alertas extends Component {
                       <td>{alerta.Valor_Detectado}</td>
                       <td>{alerta.Gravedad}</td>
                     </tr>
+                    
                   ))
                 ) : (
                   <tr>
@@ -88,9 +89,9 @@ class Alertas extends Component {
                 )}
               </tbody>
             </table>
+            </div>
           )}
         </div>
-      </div>
     );
   }
 }

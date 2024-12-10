@@ -3,3 +3,133 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 390px) {
+  /* Ajustar tamaño de fuente para pantallas pequeñas */
+  body {
+    font-size: 12px;  /* Tamaño de texto más pequeño */
+  }
+
+  .table th, .table td {
+    font-size: 10px;  /* Reducir tamaño de fuente en la tabla */
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .table th:nth-child(4), /* Oculta la columna "Ver en detalle" */
+  .table td:nth-child(4) {
+    display: none;
+  }
+}
+
+.bg-body-tertiary {
+  --bs-bg-opacity: 1;
+  background-color:  #34568b !important;
+}
+
+button.navbar-toggler {
+  background-color: #90cbfb  !important;
+  float: right !important;
+}
+
+
+.nav-link {
+  color: #fff;
+  font-size: 15px;
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+  margin-left: 10px; 
+  text-align: center; /* Centra el texto dentro de cada enlace */
+  display: block;
+}
+
+.nav-item:hover{
+  color: #90cbfb !important; /* Cambia el color del texto */
+  font-weight: bold !important; /* Pone el texto en negrita */
+}
+
+.bg-light {
+  --bs-bg-opacity: 1;
+  background-color: rgb(142 192 232 / 34%) !important;
+  padding-left: 10px !important; 
+  padding-right: 10px !important;
+}
+
+
+#navbar{
+  font-family: 'Noto Sans', sans-serif !important; /* Fuente base para todo el texto */
+  justify-content: flex-end !important;
+  padding-right: 2px !important;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Fjalla One', sans-serif !important; /* Fuente específica para h1 */
+  font-weight: bold !important; /* Texto en negrita */
+  margin-top: 10px !important; /* Espacio antes del texto */
+}
+
+h2, h3 {
+  font-family: 'Noto Sans', sans-serif !important; /* Fuente para h2 y h3 */
+  font-weight: 600 !important; /* Peso medio para un estilo semi-negrita */
+}
+
+p, span, div {
+  font-family: 'Noto Sans', sans-serif !important; /* Fuente para el resto del texto */
+  font-weight: normal !important; /* Texto sin negrita */
+}
+
+/* Para centrar la tabla dentro de .table-responsive y hacer que ocupe el 100% */
+.table-responsive {
+  display: flex; /* Usa flexbox para centrar el contenido */
+  justify-content: center !important; /* Centra la tabla horizontalmente */
+  width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho */
+}
+
+.table {
+  width: 100% !important; /* La tabla ocupará todo el ancho del contenedor */
+  max-width: 100%; /* Asegura que no se desborde */
+}
+
+
+/* Para todas las tablas con la clase .table */
+table.table {
+  border-collapse: collapse !important; /* Asegura que las celdas no tengan separación */
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+}
+
+.table td.thead, .table th {
+  border: 1px solid #d3d3d3 !important; /* Líneas de las celdas en gris muy claro */
+}
+
+/* Para las cabeceras .thead-light */
+thead.thead{
+  background-color: #34568b !important; /* Fondo de la cabecera */
+  color: #fff !important; /* Color del texto de la cabecera */
+}
+
+.cb {
+  background-color: #34568b !important; /* Fondo de la cabecera */
+  color: #fff !important; /* Color del texto de la cabecera */
+  text-align: center !important; 
+}
+
+.SinDatos{
+  text-align: center; /* Centra el texto */
+  margin-top: 25px; /* Agrega un espacio de 15px arriba */
+  margin-bottom: 25px; /* Agrega un espacio de 15px arriba */
+    font-weight: bold; /* Pone el texto en negrita */
+}

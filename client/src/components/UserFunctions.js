@@ -343,3 +343,22 @@ export const updateAntecedenteMedico = async (id, updatedData) => {
     throw err;
   }
 };
+
+// Función para generar el reporte
+export const generarReporte = async () => {
+  const token = localStorage.getItem("usertoken");
+
+  if (!token) {
+    throw new Error("Token no encontrado. Inicie sesión nuevamente.");
+  }
+
+  try {
+    const response = await axios.get("http://localhost:5000/users/generarReporte", {
+      headers: { Authorization: token },
+    });
+    return response.data.reporte; // Devuelve el reporte al frontend
+  } catch (err) {
+    console.error("Error al generar el reporte:", err);
+    throw err;
+  }
+};

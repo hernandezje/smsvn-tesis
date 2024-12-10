@@ -48,7 +48,7 @@ class NewNeonato extends Component {
     const { DNI, Nombre_Apellido, Sexo, Fecha_Nac, Peso, Altura, Grupo_Sanguineo, Condicion_Nac } = this.state;
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-md-8 mt-5 mx-auto">
             <form noValidate onSubmit={this.onSubmit}>
@@ -143,10 +143,15 @@ class NewNeonato extends Component {
                   onChange={this.onChange}
                 />
               </div>
-
-              <button type="submit" className="btn btn-lg btn-primary btn-block">
+              <div className="mt-3">
+              <button className="btn btn-primary mr-2">
                 Registrar
               </button>
+              <button className="btn btn-danger">
+            Cancelar
+          </button>
+        </div>
+
             </form>
           </div>
         </div>

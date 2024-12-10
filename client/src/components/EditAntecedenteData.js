@@ -92,7 +92,7 @@ class EditAntecedente extends Component {
     const { antecedentes, errors, mensaje } = this.state;
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <h1 className="h3 mb-3 font-weight-normal">Editar Antecedente Médico</h1>
         {mensaje && <div className="alert alert-success">{mensaje}</div>}
         {errors.general && <div className="alert alert-danger">{errors.general}</div>}
@@ -243,9 +243,14 @@ class EditAntecedente extends Component {
                   )}
                 </div>
               )}
+              <div className="mt-3">
           <button type="submit" className="btn btn-primary">
             Guardar Cambios
           </button>
+          <button className="btn btn-danger" onClick={this.toggleModal}>
+            Cancelar
+          </button>
+          </div>
         </form>
       </div>
     );
