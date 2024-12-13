@@ -2,8 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const http = require("http");
-const setupWebSocket = require("./socket");
-const Users = require("./routes/Users");
+const setupWebSocket = require("../socket");
+const Users = require("../routes/Users");
 
 const app = express();
 app.use(bodyParser.json());
