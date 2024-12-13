@@ -23,6 +23,7 @@ class Register extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   onChange(e) {
@@ -49,9 +50,11 @@ class Register extends Component {
     });
   }
 
-  render() {
-    
+  onCancel() {
+    this.props.history.push(`/`);
+  }
 
+  render() {
     return (
       <div className="container-fluid">
         <div className="row">
@@ -162,18 +165,20 @@ class Register extends Component {
                   onChange={this.onChange}
                 />
               </div>
-              <div className="mt-3">
+
               <button
                 type="submit"
                 className="btn btn-primary mr-2"
               >
                 Registrar
               </button>
-              
-              <button className="btn btn-danger" >
-            Cancelar
-          </button>
-        </div>
+              <button
+                type="button"
+                className="btn btn-danger mr-2"
+                onClick={this.onCancel}
+              >
+                Cancelar
+              </button>
             </form>
           </div>
         </div>

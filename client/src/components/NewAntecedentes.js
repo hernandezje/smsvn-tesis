@@ -23,6 +23,7 @@ class NewAntecedentes extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.validateFields = this.validateFields.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   handleChange(e) {
@@ -78,6 +79,11 @@ class NewAntecedentes extends Component {
       });
     }
   }
+
+  onCancel() {
+    this.props.history.push(`/antecedentes`);
+  }
+
 
   render() {
     const { antecedentes, errors } = this.state;
@@ -239,10 +245,10 @@ class NewAntecedentes extends Component {
                 </div>
               )}
               <div className="mt-3">
-              <button className="btn btn-primary mr-2">
-                Cargar Antecedentes
+              <button type="submit"className="btn btn-primary mr-2">
+              Registrar
               </button>
-              <button className="btn btn-danger">
+              <button type="button"className="btn btn-danger mr-2" onClick={this.onCancel}>
             Cancelar
           </button>
         </div>

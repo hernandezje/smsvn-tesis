@@ -78,7 +78,7 @@ class Neonato extends Component {
       return (     
         <div className="container-fluid">  
             <div>
-              <h4 className="SinDatos">Sin datos del neonato!</h4>
+              <h4 className="SinDatos">Sin datos del neonato! </h4>
               <button
             type="button"
             className="btn btn-lg btn-primary btn-block"

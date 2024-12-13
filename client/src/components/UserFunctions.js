@@ -362,3 +362,69 @@ export const generarReporte = async () => {
     throw err;
   }
 };
+
+
+// Función para el estado de los sensores
+export const getSensores = async () => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    if (!token) {
+      console.error("No se encontró un token en el localStorage.");
+      return null;
+    }
+
+    const response = await axios.get("http://localhost:5000/users/sensores", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (err) {
+    console.error("Error al obtener los sensores:", err);
+    throw err;
+  }
+};
+
+
+
+// Función para obtener los últimos registros de signos vitales
+export const getLatestSignosVitales = async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/users/latest-signos-vitales");
+    if (response.status === 200) {
+      return response.data;
+    } else if (response.status === 404) {
+      console.warn("No se encontraron signos vitales.");
+      return [];
+    } else {
+      const error = new Error(`Error al obtener signos vitales: Status ${response.status}`);
+      error.response = response;
+      throw error;
+    }
+  } catch (err) {
+    console.error("Error al obtener los últimos registros de signos vitales:", err);
+    throw err;
+  }
+};
+
+// Función para obtener la última alerta
+export const getAlertas = async () => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    if (!token) {
+      console.error("No se encontró un token en el localStorage.");
+      return null;
+    }
+    const response = await axios.get("http://localhost:5000/users/latest-alertas", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    console.log("uf",response.data);
+    return response.data || null;
+  } catch (err) {
+    console.error("Error al obtener la última alerta:", err);
+    throw err;
+  }
+};

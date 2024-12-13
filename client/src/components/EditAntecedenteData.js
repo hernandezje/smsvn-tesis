@@ -25,6 +25,7 @@ class EditAntecedente extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateFields = this.validateFields.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   handleChange(e) {
@@ -86,6 +87,10 @@ class EditAntecedente extends Component {
         this.setState({ mensaje: null, errors: { general: "Error al actualizar los datos." } });
       }
     }
+  }
+
+  onCancel() {
+    this.props.history.push("/antecedentes");
   }
 
   render() {
@@ -244,12 +249,19 @@ class EditAntecedente extends Component {
                 </div>
               )}
               <div className="mt-3">
-          <button type="submit" className="btn btn-primary">
-            Guardar Cambios
-          </button>
-          <button className="btn btn-danger" onClick={this.toggleModal}>
-            Cancelar
-          </button>
+              <button
+                type="submit"
+                className="btn btn-primary mr-2"
+              >
+                Guardar
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger mr-2"
+                onClick={this.onCancel}
+              >
+                Cancelar
+              </button>
           </div>
         </form>
       </div>

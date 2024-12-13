@@ -22,6 +22,7 @@ class EditNeonato extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   handleChange(e) {
@@ -69,6 +70,9 @@ class EditNeonato extends Component {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
   
+  onCancel() {
+    this.props.history.push("/neonato");
+  }
 
   render() {
     const { neonato, error, mensaje } = this.state;
@@ -163,12 +167,19 @@ class EditNeonato extends Component {
             />
           </div>
           <div className="mt-3">
-          <button type="submit" className="btn btn-primary">
-            Guardar Cambios
-          </button>
-          <button className="btn btn-danger" >
-            Cancelar
-          </button>
+          <button
+                type="submit"
+                className="btn btn-primary mr-2"
+              >
+                Guardar
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger mr-2"
+                onClick={this.onCancel}
+              >
+                Cancelar
+              </button>
           </div>
         </form>
       </div>

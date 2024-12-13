@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const { createContact, createUser, findUserByUsuario, getAllContacts, getNeonatoData, getAntecedentesData, createNeonato, 
   createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword, deleteUser, getAlertasFiltradas, 
-  updateNeonato, updateAntecedenteMedico, getReportData  } = require("../models/User");
+  updateNeonato, updateAntecedenteMedico, getReportData, getAllSensores, getLatestSignosVitales, getAlertas  } = require("../models/User");
 
 process.env.SECRET_KEY = "secret";
 
@@ -180,15 +180,15 @@ Users.post("/newantecedentes", (req, res) => {
 // Ruta para obtener el historial
 Users.get("/historial", async (req, res) => {
   try {
-    // Llamar a la función del modelo para obtener los contactos
+    // Llamar a la función del modelo para obtener historial
     const historial = await getAllHistorial();
 
-    // Verificar si hay contactos
+    // Verificar si hay historial
     if (!historial || historial.length === 0) {
       return res.status(404).json({ error: "No se encontraron datos en el historial" });
     }
 
-    // Responder con los contactos obtenidos
+    // Responder con  historial obtenidos
     res.json(historial);
   } catch (err) {
     console.error("Error al obtener el historial:", err);
@@ -354,6 +354,56 @@ Users.get("/generarReporte", async (req, res) => {
   } catch (err) {
     console.error("Error al generar el reporte:", err);
     res.status(500).json({ error: "Error interno del servidor al generar el reporte." });
+  }
+});
+
+
+// Ruta para obtener el estado de los sensores
+Users.get("/sensores", async (req, res) => {
+  try {
+    // Llamar a la función del modelo para obtener sensores
+    const sensores = await getAllSensores();
+
+    // Verificar si hay sensores
+    if (!sensores || sensores.length === 0) {
+      return res.status(404).json({ error: "No se encontraron datos en sensores" });
+    }
+
+    // Responder con los sensores
+    res.json(sensores);
+  } catch (err) {
+    console.error("Error al obtener el estado de los sensores:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
+
+
+// Ruta para obtener estado de los signos vitales
+Users.get("/latest-signos-vitales", async (req, res) => {
+  try {
+    const latest = await getLatestSignosVitales();
+    if (latest.length === 0) {
+      return res.status(404).json({ error: "No se encontraron registros" });
+    }
+    res.json(latest);
+  } catch (err) {
+    console.error("Error al obtener los últimos registros de signos vitales:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
+
+// Ruta para obtener alertas
+Users.get("/latest-alertas", async (req, res) => {
+  try {
+    const alerta = await getAlertas(); // Obtén la alerta
+    if (!alerta) {
+      return res.status(404).json({ error: "No se encontraron alertas" });
+    }
+    console.log("Datos enviados:", alerta); // Debug
+    res.json(alerta); // Enviar el objeto directamente
+  } catch (err) {
+    console.error("Error al obtener las alertas:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 

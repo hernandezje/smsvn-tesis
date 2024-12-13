@@ -86,13 +86,13 @@ class Historial extends Component {
     <div className="col-sm-8 mx-auto">
     </div>
     <div className="table-responsive">
-      <table className="table-sm">
+      <table className="table">
         <thead className="thead">
               <tr>
-                <th scope="col" className="text-center">Fecha Inic.</th>
-                <th scope="col" className="text-center">Fecha Fin</th>
-                <th scope="col" className="text-center">Estado</th>
-                <th scope="col" className="text-center">Alertas</th>
+                <th scope="col" className="cb">Fecha Inic.</th>
+                <th scope="col" className="cb">Fecha Fin</th>
+                <th scope="col" className="cb">Estado</th>
+                <th scope="col" className="cb">Alertas</th>
               </tr>
             </thead>
             <tbody>

@@ -459,5 +459,80 @@ const getReportData = async () => {
   };
 
 
+  // Buscar sensores
+  const getAllSensores = async () => {
+    const query = `
+      SELECT 
+        idSensor, Tipo_Sensor, Estado
+      FROM sensor
+    `;
+    try {
+      const [results] = await db.promise().query(query);
+      return results;
+    } catch (err) {
+      console.error("Error al obtener los estados de los sensores:", err.message);
+      throw err;
+    }
+  };
+  
+
+// Consulta para enviar los signos vitales 
+const getLatestSignosVitales = async () => {
+  const query = `
+  SELECT 
+    sv.idSignos_Vitales, 
+    sv.Fecha_Hora, 
+    sv.Medicion, 
+    sv.Estado, 
+    s.Tipo_Sensor
+FROM 
+    signos_vitales sv
+JOIN 
+    sensor s ON sv.Sensor_idSensor = s.idSensor
+WHERE (sv.Sensor_idSensor, sv.Fecha_Hora) IN (
+    SELECT Sensor_idSensor, MAX(Fecha_Hora)
+    FROM signos_vitales
+    GROUP BY Sensor_idSensor
+)
+ORDER BY s.Tipo_Sensor, sv.Fecha_Hora DESC;
+  `;
+  try {
+    const [results] = await db.promise().query(query);
+    return results; // Retornamos todos los resultados (puede ser un array vacío)
+  } catch (err) {
+    console.error("Error al obtener el último registro de signos vitales:", err.message);
+    throw err;
+  }
+};
+
+
+// Obtener la última alerta con información del sensor
+const getAlertas = async () => {
+  const query = `
+    SELECT 
+        a.idAlerta,
+        a.Valor_Detectado,
+        a.Fecha_Hora,
+        a.Gravedad,
+        s.Tipo_Sensor
+    FROM 
+        alerta a
+    JOIN 
+        sensor s ON a.Sensor_idSensor = s.idSensor
+    ORDER BY a.Fecha_Hora DESC
+    LIMIT 1;
+  `;
+  try {
+    const [results] = await db.promise().query(query);
+    console.log("Resultados de la consulta:", results);
+console.log("Objeto retornado:", results[0]);
+
+    return results.length > 0 ? results[0] : null; // Retorna el primer elemento o null si no hay resultados
+  } catch (err) {
+    console.error("Error al obtener la última alerta:", err.message);
+    throw err;
+  }
+};
+
 module.exports = { createContact, createUser, findUserByUsuario, getAllContacts, getNeonatoData, getAntecedentesData, createNeonato, createAntecedentes, getAllHistorial, getLoggedInUserInfo, updateUserInDB, getUserPassword,
-  deleteUser, getAlertasFiltradas, updateNeonato, updateAntecedenteMedico, getReportData,};
+  deleteUser, getAlertasFiltradas, updateNeonato, updateAntecedenteMedico, getReportData, getAllSensores, getLatestSignosVitales, getAlertas};

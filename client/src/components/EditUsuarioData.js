@@ -22,6 +22,7 @@ class EditUsuario extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   handleChange(e) {
@@ -53,6 +54,10 @@ class EditUsuario extends Component {
       console.error("Error al actualizar el usuario:", error);
       this.setState({ error: "Error al actualizar el usuario.", mensaje: null });
     }
+  }
+
+  onCancel() {
+    this.props.history.push(`/usuarioData`);
   }
 
   render() {
@@ -147,10 +152,10 @@ class EditUsuario extends Component {
             />
           </div>
           <div className="mt-3">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary mr-2">
             Guardar
           </button>
-          <button className="btn btn-danger" >
+          <button type="button" className="btn btn-danger mr-2" onClick={this.onCancel} >
             Cancelar
           </button>
         </div>
