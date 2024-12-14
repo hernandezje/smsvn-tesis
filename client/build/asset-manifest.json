@@ -1,13 +1,20 @@
 {
-  "main.css": "static/css/main.205951a4.css",
-  "main.css.map": "static/css/main.205951a4.css.map",
-  "main.js": "static/js/main.e4abb010.js",
-  "main.js.map": "static/js/main.e4abb010.js.map",
-  "static/js/0.0ed9e923.chunk.js": "static/js/0.0ed9e923.chunk.js",
-  "static/js/0.0ed9e923.chunk.js.map": "static/js/0.0ed9e923.chunk.js.map",
-  "static/js/1.f22d4dd2.chunk.js": "static/js/1.f22d4dd2.chunk.js",
-  "static/js/1.f22d4dd2.chunk.js.map": "static/js/1.f22d4dd2.chunk.js.map",
-  "static/js/2.bd7b9249.chunk.js": "static/js/2.bd7b9249.chunk.js",
-  "static/js/2.bd7b9249.chunk.js.map": "static/js/2.bd7b9249.chunk.js.map",
-  "static\\media\\babyhelp.png": "static/media/babyhelp.adfc7871.png"
+  "files": {
+    "main.css": "/static/css/main.572f5246.css",
+    "main.js": "/static/js/main.7e528df9.js",
+    "static/js/239.eab0352a.chunk.js": "/static/js/239.eab0352a.chunk.js",
+    "static/js/213.1f713d6f.chunk.js": "/static/js/213.1f713d6f.chunk.js",
+    "static/js/51.63cce1c0.chunk.js": "/static/js/51.63cce1c0.chunk.js",
+    "static/media/babyhelp.png": "/static/media/babyhelp.754ca85366c0f6dfe038.png",
+    "index.html": "/index.html",
+    "main.572f5246.css.map": "/static/css/main.572f5246.css.map",
+    "main.7e528df9.js.map": "/static/js/main.7e528df9.js.map",
+    "239.eab0352a.chunk.js.map": "/static/js/239.eab0352a.chunk.js.map",
+    "213.1f713d6f.chunk.js.map": "/static/js/213.1f713d6f.chunk.js.map",
+    "51.63cce1c0.chunk.js.map": "/static/js/51.63cce1c0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.572f5246.css",
+    "static/js/main.7e528df9.js"
+  ]
 }
