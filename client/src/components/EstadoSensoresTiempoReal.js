@@ -37,7 +37,7 @@ const SensoresMonitor = () => {
 
   return (
     <div>
-     <h5 className="mb-3">Signos Vitales</h5>
+     <h5 className="mb-3">Sensores</h5>
       {sensores.length === 0 ? (
         <p>No hay datos de sensores disponibles.</p>
       ) : (

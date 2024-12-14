@@ -1,9 +1,7 @@
-const { override, addBabelInclude } = require('customize-cra');
-const path = require('path');
+const { override, addWebpackExternals } = require("customize-cra");
 
 module.exports = override(
-  addBabelInclude([
-    path.resolve('src'),
-    path.resolve('node_modules/canvg'), // Transpilar canvg
-  ])
+  addWebpackExternals({
+    "canvg": "commonjs canvg"
+  })
 );
