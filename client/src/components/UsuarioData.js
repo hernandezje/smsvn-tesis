@@ -45,7 +45,7 @@ class UsuarioData extends Component {
 
   
         // Realizar la solicitud al backend
-        const response = await axios.get(`http://localhost:5000/users/usuario/${idUsuario}`, {
+        const response = await axios.get(`/users/usuario/${idUsuario}`, {
           headers: { Authorization: token },
         });
         if (response.data && response.data.user) {
@@ -86,7 +86,7 @@ class UsuarioData extends Component {
   
     try {
       const response = await axios.post(
-        `http://localhost:5000/users/delete/${usuario.idUsuario}`,
+        `/users/delete/${usuario.idUsuario}`,
         { password },
         {
           headers: { Authorization: token },

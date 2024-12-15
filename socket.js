@@ -4,7 +4,7 @@ const { getLatestSignosVitales, getAllSensores, getAlertas } = require("./models
 function setupWebSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000", 
+      origin: "https://auth-db1783.hstgr.io:3306", 
       methods: ["GET", "POST"],
     },
   });
