@@ -4,7 +4,7 @@ let socket;
 
 export const connectSocket = () => {
     if (!socket) {
-      socket = io("http://localhost:5000", {
+      socket = io("https://srv1783.hstgr.io", {
         reconnection: true,
         reconnectionAttempts: 5,
         reconnectionDelayMax: 10000,

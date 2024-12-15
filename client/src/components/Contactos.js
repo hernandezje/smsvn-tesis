@@ -19,7 +19,7 @@ class Contactos extends Component {
     if (token) {
       // Hacer la solicitud para obtener todos los contactos desde el backend
       axios
-        .get("http://localhost:5000/users/contactos", {
+        .get("https://srv1783.hstgr.io/users/contactos", {
           headers: {
             Authorization: token
           }

@@ -19,7 +19,7 @@ class Historial extends Component {
     if (token) {
       // Hacer la solicitud para obtener todos los historial desde el backend
       axios
-        .get("http://localhost:5000/users/historial", {
+        .get("https://srv1783.hstgr.io/users/historial", {
           headers: {
             Authorization: token
           }

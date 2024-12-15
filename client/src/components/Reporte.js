@@ -12,7 +12,7 @@ class Reporte extends Component {
   generarPDF = async () => {
     try {
       // Solicitar los datos del reporte
-      const response = await axios.get("http://localhost:5000/users/generarReporte", {
+      const response = await axios.get("https://srv1783.hstgr.io/users/generarReporte", {
         headers: {
           Authorization: localStorage.getItem("usertoken"), // Token de autorización
         },

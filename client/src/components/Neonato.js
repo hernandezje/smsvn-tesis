@@ -29,7 +29,7 @@ class Neonato extends Component {
     if (token) {
       // Realizar la solicitud al backend para obtener los datos
       axios
-        .get("http://localhost:5000/users/neonato", {
+        .get("https://srv1783.hstgr.io/users/neonato", {
           headers: { Authorization: token },
         })
         .then((response) => {

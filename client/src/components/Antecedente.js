@@ -30,7 +30,7 @@ class Antecedente extends Component {
     if (token) {
       // Realizar la solicitud al backend para obtener los datos
       axios
-        .get("http://localhost:5000/users/antecedentes", {
+        .get("https://srv1783.hstgr.io/users/antecedentes", {
           headers: { Authorization: token },
         })
         .then((response) => {

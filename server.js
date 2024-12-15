@@ -20,5 +20,5 @@ setupWebSocket(server);
 
 const PORT = 5000;
 server.listen(PORT, () => {
-  console.log(`Servidor corriendo en https://auth-db1783.hstgr.io:${PORT}`);
+  console.log(`Servidor corriendo en https://srv1783.hstgr.io:${PORT}`);
 });

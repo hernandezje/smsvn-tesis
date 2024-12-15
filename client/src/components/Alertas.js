@@ -20,7 +20,7 @@ class Alertas extends Component {
     if (fechaInicio && fechaFin) {
       // Hacer la solicitud para obtener las alertas filtradas
       axios
-        .get(`http://localhost:5000/users/alertas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+        .get(`https://srv1783.hstgr.io/users/alertas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
         .then((response) => {
           // Actualizar el estado con las alertas recibidas
           this.setState({ alertas: response.data });
