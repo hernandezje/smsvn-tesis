@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "nodejs login with jwt token",
   "main": "server.js",
-  "scripts": {  
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "node server.js",
@@ -23,12 +23,12 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
-    "express": "^4.16.3",
+    "express": "^4.21.2",
     "jsonwebtoken": "^7.4.2",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "mysql": "^2.14.1",
-    "mysql2": "^1.6.1",
+    "mysql2": "^1.7.0",
     "react-dom": "^19.0.0",
     "react-scripts": "^5.0.1",
     "sequelize": "^4.38.0",
@@ -37,5 +37,13 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/hernandezje/smsvn-tesis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hernandezje/smsvn-tesis/issues"
+  },
+  "homepage": "https://github.com/hernandezje/smsvn-tesis#readme"
 }
