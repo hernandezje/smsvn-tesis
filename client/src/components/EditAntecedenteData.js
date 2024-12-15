@@ -77,7 +77,7 @@ class EditAntecedente extends Component {
 
       try {
         const response = await axios.put(
-          `https://srv1783.hstgr.io/users/editAntecedenteMedico/${antecedentes.idAntecedente_Medico}`,
+          `/users/editAntecedenteMedico/${antecedentes.idAntecedente_Medico}`,
           antecedentes,
           { headers: { "Content-Type": "application/json" } }
         );

@@ -38,7 +38,7 @@ class EditUsuario extends Component {
 
     try {
       const response = await axios.put(
-        `https://srv1783.hstgr.io/users/editUsuario/${usuario.idUsuario}`, // Asegúrate de que "id" esté presente en los datos del usuario
+        `/users/editUsuario/${usuario.idUsuario}`, // Asegúrate de que "id" esté presente en los datos del usuario
         usuario,
         {
           headers: {

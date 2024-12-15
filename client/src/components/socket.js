@@ -4,7 +4,7 @@ let socket;
 
 export const connectSocket = () => {
     if (!socket) {
-      socket = io("https://srv1783.hstgr.io", {
+      socket = io("http://babyhelp.site:3000", {
         reconnection: true,
         reconnectionAttempts: 5,
         reconnectionDelayMax: 10000,

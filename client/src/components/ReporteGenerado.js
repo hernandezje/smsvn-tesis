@@ -4,7 +4,7 @@ import { generarReporte } from "./UserFunctions";
 class Reporte extends Component {
   handleGenerarReporte = async () => {
     try {
-      const response = await fetch("https://srv1783.hstgr.io/users/generarReporte", {
+      const response = await fetch("/users/generarReporte", {
         method: "GET",
         headers: {
           Authorization: localStorage.getItem("usertoken"), // Token del usuario

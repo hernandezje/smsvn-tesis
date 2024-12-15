@@ -37,7 +37,7 @@ class EditNeonato extends Component {
     const { neonato } = this.state;
     try {
       const response = await axios.put(
-        `https://srv1783.hstgr.io/users/editNeonato/${neonato.idLactante}`, // Asegúrate de que "idLactante" esté presente en los datos del neonato
+        `/users/editNeonato/${neonato.idLactante}`, // Asegúrate de que "idLactante" esté presente en los datos del neonato
         neonato,
         {
           headers: {
