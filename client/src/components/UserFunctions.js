@@ -5,7 +5,7 @@ export const register = async (Contacto) => {
   try {
     const response = await axios
       .post(
-        "https://auth-db1783.hstgr.io/users/register",
+        "https://babyhelp.site/users/register",
         { Contacto },
         {
           headers: {
@@ -29,7 +29,7 @@ export const login = async (user) => {
   try {
     const response = await axios
       .post(
-        "https://auth-db1783.hstgr.io/users/login", 
+        "https://babyhelp.site/users/login", 
         JSON.stringify(user),
         { 
           headers: {
@@ -61,7 +61,7 @@ export const getAllContacts = async () => {
     }
     
     // Realizar la solicitud al backend
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/contactos", {
+    const response = await axios.get("https://babyhelp.site/users/contactos", {
       headers: {
         Authorization: token, // Enviar el token en los headers
       },
@@ -86,7 +86,7 @@ export const getNeonatoData = async () => {
   }
 
   try {
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/neonato", {
+    const response = await axios.get("https://babyhelp.site/users/neonato", {
       headers: { Authorization: token },
     });
     console.log("retorna:",response);
@@ -106,7 +106,7 @@ export const createNeonato = async (newNeonato) => {
   }
   try {
     const response = await axios
-      .post("https://auth-db1783.hstgr.io/users/newneonato", newNeonato, {
+      .post("https://babyhelp.site/users/newneonato", newNeonato, {
         headers: { Authorization: token },
       });
     console.log("LLEGA2:", response);
@@ -127,7 +127,7 @@ export const getAntecedentesData = async () => {
   }
 
   try {
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/antecedentes", {
+    const response = await axios.get("https://babyhelp.site/users/antecedentes", {
       headers: { Authorization: token },
     });
     console.log("retorna:",response);
@@ -147,7 +147,7 @@ export const createAntecedentes = async (newAntecedentes) => {
   }
   try {
     const response = await axios
-      .post("https://auth-db1783.hstgr.io/users/newantecedentes", newAntecedentes, {
+      .post("https://babyhelp.site/users/newantecedentes", newAntecedentes, {
         headers: { Authorization: token },
       });
     console.log("LLEGA2:", response);
@@ -171,7 +171,7 @@ export const getHistorial = async () => {
     }
     
     // Realizar la solicitud al backend
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/historial", {
+    const response = await axios.get("https://babyhelp.site/users/historial", {
       headers: {
         Authorization: token, // Enviar el token en los headers
       },
@@ -203,7 +203,7 @@ export const getUserData = async () => {
       return null;
     }
   try {
-    const response = await axios.get(`https://auth-db1783.hstgr.io/users/usuario/${idUsuario}`, {
+    const response = await axios.get(`https://babyhelp.site/users/usuario/${idUsuario}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -230,7 +230,7 @@ export const editUserData = async (idUsuario, updatedData) => {
     }
 
     const response = await axios.put(
-      `https://auth-db1783.hstgr.io/users/editUsuario/${idUsuario}`,
+      `https://babyhelp.site/users/editUsuario/${idUsuario}`,
       updatedData, // Objeto con los campos a editar
       {
         headers: {
@@ -258,7 +258,7 @@ export const deleteUserAccount = async (idUsuario, password) => {
 
   try {
     const response = await axios.post(
-      `https://auth-db1783.hstgr.io/users/delete/${idUsuario}`,
+      `https://babyhelp.site/users/delete/${idUsuario}`,
       { password }, // Enviar la contraseña en el cuerpo de la solicitud
       { headers: { Authorization: token } }
     );
@@ -280,7 +280,7 @@ export const getAlertasFiltradas = async (fechaInicio, fechaFin) => {
   }
 
   try {
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/alertas", {
+    const response = await axios.get("https://babyhelp.site/users/alertas", {
       headers: { Authorization: token },
       params: { Fecha_Inicio: fechaInicio, Fecha_Fin: fechaFin },
     });
@@ -301,7 +301,7 @@ export const updateNeonato = async (id, updatedData) => {
     }
 
     const response = await axios.put(
-      `https://auth-db1783.hstgr.io/users/editNeonato/${id}`, // URL con el ID
+      `https://babyhelp.site/users/editNeonato/${id}`, // URL con el ID
       updatedData, // Datos enviados en el cuerpo de la solicitud
       {
         headers: {
@@ -327,7 +327,7 @@ export const updateAntecedenteMedico = async (id, updatedData) => {
     }
 
     const response = await axios.put(
-      `https://auth-db1783.hstgr.io/users/editAntecedenteMedico/${id}`, // URL con el ID
+      `https://babyhelp.site/users/editAntecedenteMedico/${id}`, // URL con el ID
       updatedData, // Datos enviados en el cuerpo de la solicitud
       {
         headers: {
@@ -353,7 +353,7 @@ export const generarReporte = async () => {
   }
 
   try {
-    const response = await axios.get("https://auth-db1783.hstgr.io/generarReporte", {
+    const response = await axios.get("https://babyhelp.site/generarReporte", {
       headers: { Authorization: token },
     });
     return response.data.reporte; // Devuelve el reporte al frontend
@@ -373,7 +373,7 @@ export const getSensores = async () => {
       return null;
     }
 
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/sensores", {
+    const response = await axios.get("https://babyhelp.site/users/sensores", {
       headers: {
         Authorization: token,
       },
@@ -391,7 +391,7 @@ export const getSensores = async () => {
 // Función para obtener los últimos registros de signos vitales
 export const getLatestSignosVitales = async () => {
   try {
-    const response = await axios.get("https://auth-db1783.hstgr.io/users/latest-signos-vitales");
+    const response = await axios.get("https://babyhelp.site/users/latest-signos-vitales");
     if (response.status === 200) {
       return response.data;
     } else if (response.status === 404) {
