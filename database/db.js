@@ -2,9 +2,9 @@ const mysql = require("mysql2");
 
 const db = mysql.createPool({
   host: "localhost", // Cambia por tu host
-  user: "root",      // Cambia por tu usuario
-  password: "",      // Cambia por tu contraseña
-  database: "babyhelpbd", // Cambia por el nombre de tu base de datos
+  user: "u158972839_root",      // Cambia por tu usuario
+  password: "tesisBabyhelp_369",      // Cambia por tu contraseña
+  database: "u158972839_babyhelpbd", // Cambia por el nombre de tu base de datos
 });
 
 // Probar la conexión
