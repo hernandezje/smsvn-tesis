@@ -12,6 +12,11 @@ export const register = async (Contacto) => {
             "Content-Type": "application/json",
             "Content-Length": JSON.stringify({ Contacto }).length,
           },
+        },
+        {
+          httpsAgent: new https.Agent({
+              rejectUnauthorized: false, // Ignorar verificación SSL
+          }),
         }
       );
     console.log("Registro exitoso:", response.data);

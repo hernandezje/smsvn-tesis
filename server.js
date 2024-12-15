@@ -7,7 +7,7 @@ const Users = require("./routes/Users");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ origin: 'https://srv1783.hstgr.io' }));
 
 // Ruta principal para usuarios
 app.use("/users", Users);
