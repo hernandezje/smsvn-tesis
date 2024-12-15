@@ -7,7 +7,7 @@ const Users = require("./routes/Users");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({ origin: 'https://srv1783.hstgr.io' }));
+app.use(cors());
 
 // Ruta principal para usuarios
 app.use("/users", Users);
@@ -18,7 +18,7 @@ const server = http.createServer(app);
 // Configurar WebSocket
 setupWebSocket(server);
 
-const PORT = 5000;
+const PORT = 3000;
 server.listen(PORT, () => {
-  console.log(`Servidor corriendo en https://srv1783.hstgr.io:${PORT}`);
+  console.log(`Servidor corriendo en http://babyhelp.site:${PORT}`);
 });
