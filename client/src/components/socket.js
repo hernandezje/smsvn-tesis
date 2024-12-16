@@ -4,7 +4,7 @@ let socket;
 
 export const connectSocket = () => {
     if (!socket) {
-      socket = io("https://78.142.242.115:3000", {
+      socket = io("http://78.142.242.115:3000", {
         reconnection: true,
         reconnectionAttempts: 5,
         reconnectionDelayMax: 10000,
