@@ -11,6 +11,10 @@ app.use(cors());
 
 // Ruta principal para usuarios
 app.use("/users", Users);
+app.get('/', (req, res) => {
+  res.send('Backend funcionando correctamente.');
+});
+
 
 // Crear el servidor HTTP
 const server = http.createServer(app);
@@ -20,5 +24,5 @@ setupWebSocket(server);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://smsvn.tesis.babyhelp.site:${PORT}`);
+  console.log(`Servidor corriendo en ${PORT}`);
 });
