@@ -27,7 +27,7 @@ class Landing extends Component {
         </div>
         {/* Sección WELCOME3: Descripción */}
         <div className="col-sm-12">
-          <h2 className="text-center my-4">¡Descubre BABYHELP3! Tu aliado en salud y bienestar.</h2>
+          <h2 className="text-center my-4">¡Descubre BABYHELP4! Tu aliado en salud y bienestar.</h2>
           <p className="text-justify">
           En BABYHELP, hemos creado un innovador dispositivo pensado para brindar tranquilidad a los padres y proteger a los recién nacidos en sus primeros y más delicados meses de vida.
           Nuestro dispositivo inteligente monitorea en tiempo real los signos vitales del bebé, proporcionando una herramienta clave para prevenir el síndrome de muerte súbita, una de las principales preocupaciones en los primeros nueve meses.
