@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { updateNeonato } from "./UserFunctions"; // Importar la función
 
 class EditNeonato extends Component {
   constructor(props) {
@@ -36,15 +36,7 @@ class EditNeonato extends Component {
     e.preventDefault();
     const { neonato } = this.state;
     try {
-      const response = await axios.put(
-        `/users/editNeonato/${neonato.idLactante}`, // Asegúrate de que "idLactante" esté presente en los datos del neonato
-        neonato,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await updateNeonato(neonato.idLactante, neonato); // Llamamos a la función updateNeonato
       this.setState({ mensaje: "Datos del neonato actualizados correctamente.", error: null });
       // Redirige a una página específica después de la actualización
       this.props.history.push("/neonato");
@@ -56,20 +48,16 @@ class EditNeonato extends Component {
 
   formatDate(dateString) {
     if (!dateString) return ""; // Si no hay fecha, retornar una cadena vacía
-  
     const date = new Date(dateString);
-  
-    // Extraer componentes de la fecha y hora
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Mes (de 0 a 11, +1)
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
-  
-    // Formatear como yyyy-MM-ddThh:mm
+
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
-  
+
   onCancel() {
     this.props.history.push("/neonato");
   }
@@ -167,19 +155,16 @@ class EditNeonato extends Component {
             />
           </div>
           <div className="mt-3">
-          <button
-                type="submit"
-                className="btn btn-primary mr-2"
-              >
-                Guardar
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger mr-2"
-                onClick={this.onCancel}
-              >
-                Cancelar
-              </button>
+            <button type="submit" className="btn btn-primary mr-2">
+              Guardar
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger mr-2"
+              onClick={this.onCancel}
+            >
+              Cancelar
+            </button>
           </div>
         </form>
       </div>

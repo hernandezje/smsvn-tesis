@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { updateAntecedenteMedico } from "./UserFunctions";  // Importamos la función
+// Puedes ajustar la ruta según donde esté ubicada la función
 
 class EditAntecedente extends Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class EditAntecedente extends Component {
     const { antecedentes } = this.props.location.state || {};
     this.state = {
       antecedentes: antecedentes || {
+        idAntecedente_Medico: "",
         Adicciones: "NO",
         Descripcion_Adic: "",
         Patologias: "NO",
@@ -74,13 +76,12 @@ class EditAntecedente extends Component {
 
     if (this.validateFields()) {
       const { antecedentes } = this.state;
+      const { idAntecedente_Medico } = antecedentes;
 
       try {
-        const response = await axios.put(
-          `/users/editAntecedenteMedico/${antecedentes.idAntecedente_Medico}`,
-          antecedentes,
-          { headers: { "Content-Type": "application/json" } }
-        );
+        // Llamada a la función userFunction
+        await updateAntecedenteMedico(idAntecedente_Medico, antecedentes);
+
         this.setState({ mensaje: "Datos actualizados correctamente.", errors: {} });
         this.props.history.push("/antecedentes");
       } catch (error) {

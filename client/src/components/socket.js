@@ -4,7 +4,7 @@ let socket;
 
 export const connectSocket = () => {
     if (!socket) {
-      socket = io("http://78.142.242.115:3000", {
+        socket = io("http://localhost:5000", { // Cambiado a 5000 para el servidor 
         reconnection: true,
         reconnectionAttempts: 5,
         reconnectionDelayMax: 10000,

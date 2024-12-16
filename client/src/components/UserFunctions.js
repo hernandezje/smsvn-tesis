@@ -5,7 +5,7 @@ export const register = async (Contacto) => {
   try {
     const response = await axios
       .post(
-        "http://78.142.242.115/users/register",
+        "http://localhost:5000/users/register",
         { Contacto },
         {
           headers: {
@@ -29,7 +29,7 @@ export const login = async (user) => {
   try {
     const response = await axios
       .post(
-        "http://78.142.242.115/users/login", 
+        "http://localhost:5000/users/login", 
         JSON.stringify(user),
         { 
           headers: {
@@ -61,15 +61,25 @@ export const getAllContacts = async () => {
     }
     
     // Realizar la solicitud al backend
-    const response = await axios.get("http://78.142.242.115/users/contactos", {
+    const response = await fetch("http://localhost:5000/users/contactos", {
+      method: "GET",
       headers: {
         Authorization: token, // Enviar el token en los headers
-      },
+        "Content-Type": "application/json"
+      }
     });
 
+    // Verificar si la respuesta es exitosa
+    if (!response.ok) {
+      throw new Error("Error al obtener los contactos");
+    }
+
+    // Obtener los datos de los contactos
+    const data = await response.json();
+    console.log("Contactos obtenidos:", data);
+
     // Devolver los contactos obtenidos
-    console.log("Contactos obtenidos:", response);
-    return response.data;
+    return data;
   } catch (err) {
     console.error("Error al obtener los contactos:", err);
     throw err;
@@ -86,7 +96,7 @@ export const getNeonatoData = async () => {
   }
 
   try {
-    const response = await axios.get("http://78.142.242.115/users/neonato", {
+    const response = await axios.get("http://localhost:5000/users/neonato", {
       headers: { Authorization: token },
     });
     console.log("retorna:",response);
@@ -127,7 +137,7 @@ export const getAntecedentesData = async () => {
   }
 
   try {
-    const response = await axios.get("http://78.142.242.115/users/antecedentes", {
+    const response = await axios.get("http://localhost:5000/users/antecedentes", {
       headers: { Authorization: token },
     });
     console.log("retorna:",response);
@@ -147,7 +157,7 @@ export const createAntecedentes = async (newAntecedentes) => {
   }
   try {
     const response = await axios
-      .post("http://78.142.242.115/users/newantecedentes", newAntecedentes, {
+      .post("http://localhost:5000/users/newantecedentes", newAntecedentes, {
         headers: { Authorization: token },
       });
     console.log("LLEGA2:", response);
@@ -171,7 +181,7 @@ export const getHistorial = async () => {
     }
     
     // Realizar la solicitud al backend
-    const response = await axios.get("http://78.142.242.115/users/historial", {
+    const response = await axios.get("http://localhost:5000/users/historial", {
       headers: {
         Authorization: token, // Enviar el token en los headers
       },
@@ -203,7 +213,7 @@ export const getUserData = async () => {
       return null;
     }
   try {
-    const response = await axios.get(`http://78.142.242.115/users/usuario/${idUsuario}`, {
+    const response = await axios.get(`http://localhost:5000/users/usuario/${idUsuario}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -230,7 +240,7 @@ export const editUserData = async (idUsuario, updatedData) => {
     }
 
     const response = await axios.put(
-      `http://78.142.242.115/users/editUsuario/${idUsuario}`,
+      `http://localhost:5000/users/editUsuario/${idUsuario}`,
       updatedData, // Objeto con los campos a editar
       {
         headers: {
@@ -258,7 +268,7 @@ export const deleteUserAccount = async (idUsuario, password) => {
 
   try {
     const response = await axios.post(
-      `http://78.142.242.115/users/delete/${idUsuario}`,
+      `http://localhost:5000/users/delete/${idUsuario}`,
       { password }, // Enviar la contraseña en el cuerpo de la solicitud
       { headers: { Authorization: token } }
     );
@@ -280,7 +290,7 @@ export const getAlertasFiltradas = async (fechaInicio, fechaFin) => {
   }
 
   try {
-    const response = await axios.get("http://78.142.242.115/users/alertas", {
+    const response = await axios.get("http://localhost:5000/users/alertas", {
       headers: { Authorization: token },
       params: { Fecha_Inicio: fechaInicio, Fecha_Fin: fechaFin },
     });
@@ -301,7 +311,7 @@ export const updateNeonato = async (id, updatedData) => {
     }
 
     const response = await axios.put(
-      `http://78.142.242.115/users/editNeonato/${id}`, // URL con el ID
+      `http://localhost:5000/users/editNeonato/${id}`, // URL con el ID
       updatedData, // Datos enviados en el cuerpo de la solicitud
       {
         headers: {
@@ -327,7 +337,7 @@ export const updateAntecedenteMedico = async (id, updatedData) => {
     }
 
     const response = await axios.put(
-      `http://78.142.242.115/users/editAntecedenteMedico/${id}`, // URL con el ID
+      `http://localhost:5000/users/editAntecedenteMedico/${id}`, // URL con el ID
       updatedData, // Datos enviados en el cuerpo de la solicitud
       {
         headers: {
@@ -353,7 +363,7 @@ export const generarReporte = async () => {
   }
 
   try {
-    const response = await axios.get("http://78.142.242.115/users/generarReporte", {
+    const response = await axios.get("http://localhost:5000/users/generarReporte", {
       headers: { Authorization: token },
     });
     return response.data.reporte; // Devuelve el reporte al frontend
@@ -362,7 +372,6 @@ export const generarReporte = async () => {
     throw err;
   }
 };
-
 
 // Función para el estado de los sensores
 export const getSensores = async () => {
@@ -373,7 +382,7 @@ export const getSensores = async () => {
       return null;
     }
 
-    const response = await axios.get("http://78.142.242.115/users/sensores", {
+    const response = await axios.get("http://localhost:5000/users/sensores", {
       headers: {
         Authorization: token,
       },
@@ -391,7 +400,7 @@ export const getSensores = async () => {
 // Función para obtener los últimos registros de signos vitales
 export const getLatestSignosVitales = async () => {
   try {
-    const response = await axios.get("http://78.142.242.115/users/latest-signos-vitales");
+    const response = await axios.get("http://localhost:5000/users/latest-signos-vitales");
     if (response.status === 200) {
       return response.data;
     } else if (response.status === 404) {
@@ -416,7 +425,7 @@ export const getAlertas = async () => {
       console.error("No se encontró un token en el localStorage.");
       return null;
     }
-    const response = await axios.get("http://78.142.242.115/users/latest-alertas", {
+    const response = await axios.get("http://localhost:5000/users/latest-alertas", {
       headers: {
         Authorization: token,
       },
@@ -428,3 +437,20 @@ export const getAlertas = async () => {
     throw err;
   }
 };
+
+
+// Función para probar la conexión con el backend
+const testConnection = async () => {
+  try {
+    const response = await axios.get('http://localhost:5000test/a'); // Ajusta la URL si es necesario
+    if (response.data === 'OK') {
+      console.log('Conexión exitosa con el backend');
+    } else {
+      console.log('Respuesta inesperada del backend');
+    }
+  } catch (error) {
+    console.error('Error al conectar con el backend:', error);
+  }
+};
+
+testConnection();

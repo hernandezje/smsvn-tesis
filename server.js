@@ -11,8 +11,9 @@ app.use(cors());
 
 // Ruta principal para usuarios
 app.use("/users", Users);
-app.get('/', (req, res) => {
-  res.send('Backend funcionando correctamente.');
+// Ruta de prueba
+app.get('/test/a', (req, res) => {
+  res.send('Ruta /test/a alcanzada correctamente');
 });
 
 
@@ -22,7 +23,7 @@ const server = http.createServer(app);
 // Configurar WebSocket
 setupWebSocket(server);
 
-const PORT = process.env.PORT || 3000;
+const PORT = 5000;
 server.listen(PORT, () => {
   console.log(`Servidor corriendo en ${PORT}`);
 });

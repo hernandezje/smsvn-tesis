@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { getAlertasFiltradas } from "./UserFunctions";  // Importar la nueva función
 
 class Alertas extends Component {
   constructor() {
@@ -18,12 +18,11 @@ class Alertas extends Component {
 
     // Verificar si las fechas están disponibles
     if (fechaInicio && fechaFin) {
-      // Hacer la solicitud para obtener las alertas filtradas
-      axios
-        .get(`/users/alertas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+      // Usar la nueva función getAlertasFiltradas
+      getAlertasFiltradas(fechaInicio, fechaFin)
         .then((response) => {
           // Actualizar el estado con las alertas recibidas
-          this.setState({ alertas: response.data });
+          this.setState({ alertas: response });
         })
         .catch((error) => {
           console.error("Error al obtener las alertas:", error);
@@ -53,15 +52,15 @@ class Alertas extends Component {
 
     return (
       <div className="container-fluid">
-         <h1 className="h3 mb-3 font-weight-normal">Alertas Filtradas</h1>
-          <div className="col-sm-8 mx-auto">
-          </div>
-          {errors.message ? (
-            <div className="alert alert-danger text-center">{errors.message}</div>
-          ) : (
-            <div className="table-responsive">
-      <table className="table table-sm">
-        <thead className="thead">
+        <h1 className="h3 mb-3 font-weight-normal">Alertas Filtradas</h1>
+        <div className="col-sm-8 mx-auto">
+        </div>
+        {errors.message ? (
+          <div className="alert alert-danger text-center">{errors.message}</div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-sm">
+              <thead className="thead">
                 <tr>
                   <th scope="col" className="cb">Fecha/Hora</th>
                   <th scope="col" className="cb">Sensor</th>
@@ -78,7 +77,6 @@ class Alertas extends Component {
                       <td>{alerta.Valor_Detectado}</td>
                       <td>{alerta.Gravedad}</td>
                     </tr>
-                    
                   ))
                 ) : (
                   <tr>
@@ -89,9 +87,9 @@ class Alertas extends Component {
                 )}
               </tbody>
             </table>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
     );
   }
 }

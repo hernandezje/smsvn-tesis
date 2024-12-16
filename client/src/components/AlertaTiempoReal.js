@@ -101,10 +101,10 @@ const AlertasMonitor = () => {
           <table className="table table-bordered text-center">
             <thead>
               <tr>
-                <th>Fecha-Hora</th>
-                <th>Sensor</th>
-                <th>Medición</th>
-                <th>Gravedad</th>
+                <th className="cb">Fecha-Hora</th>
+                <th className="cb">Sensor</th>
+                <th className="cb">Medición</th>
+                <th className="cb">Gravedad</th>
               </tr>
             </thead>
             <tbody>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { getAllContacts } from "./UserFunctions"; // Importa la función para obtener los contactos
 
 class Contactos extends Component {
   constructor() {
@@ -9,42 +9,33 @@ class Contactos extends Component {
       errors: {}
     };
   }
-  
 
   componentDidMount() {
-    // Obtener el token del localStorage
-    const token = localStorage.usertoken;
-
-    // Verificar si hay un token
-    if (token) {
-      // Hacer la solicitud para obtener todos los contactos desde el backend
-      axios
-        .get("/users/contactos", {
-          headers: {
-            Authorization: token
-          }
-        })
-        .then((response) => {
-          // Actualizar el estado con los datos recibidos
-          this.setState({ contactos: response.data });
-        })
-        .catch((error) => {
-          console.error("Error al obtener los contactos:", error);
-        });
-    } else {
-      console.log("No token found");
-    }
+    // Obtener todos los contactos al montar el componente
+    this.fetchContactos();
   }
+
+  // Función para obtener los contactos usando la función getAllContacts
+  fetchContactos = async () => {
+    try {
+      const contactos = await getAllContacts(); // Llama a la función para obtener los contactos
+      if (contactos) {
+        this.setState({ contactos }); // Actualiza el estado con los contactos
+      }
+    } catch (error) {
+      console.error("Error al obtener los contactos:", error);
+    }
+  };
 
   render() {
     return (
       <div className="container-fluid">
-      <h1 className="h3 mb-3 font-weight-normal">Contactos</h1>
-    <div className="col-sm-8 mx-auto">
-          </div>
-          <div className="table-responsive">
-      <table className="table table-sm">
-        <thead className="thead">
+        <h1 className="h3 mb-3 font-weight-normal">Contactos</h1>
+        <div className="col-sm-8 mx-auto">
+        </div>
+        <div className="table-responsive">
+          <table className="table table-sm">
+            <thead className="thead">
               <tr>
                 <th scope="col" className="cb">DNI</th>
                 <th scope="col" className="cb">Nombre</th>
@@ -73,8 +64,8 @@ class Contactos extends Component {
               )}
             </tbody>
           </table>
-          </div>
         </div>
+      </div>
     );
   }
 }

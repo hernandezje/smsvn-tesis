@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { editUserData } from "./UserFunctions";
 
 class EditUsuario extends Component {
   constructor(props) {
@@ -35,21 +35,12 @@ class EditUsuario extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { usuario } = this.state;
+    const idUsuario = usuario.idUsuario;
 
     try {
-      const response = await axios.put(
-        `/users/editUsuario/${usuario.idUsuario}`, // Asegúrate de que "id" esté presente en los datos del usuario
-        usuario,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await editUserData(idUsuario, usuario); // Usamos la función editUserData desde UserFunctions
       this.setState({ mensaje: "Usuario actualizado con éxito.", error: null });
-      // Redirige a /usuarioData
-    this.props.history.push("/usuarioData");
-    
+      this.props.history.push("/usuarioData");
     } catch (error) {
       console.error("Error al actualizar el usuario:", error);
       this.setState({ error: "Error al actualizar el usuario.", mensaje: null });
@@ -57,7 +48,7 @@ class EditUsuario extends Component {
   }
 
   onCancel() {
-    this.props.history.push(`/usuarioData`);
+    this.props.history.push("/usuarioData");
   }
 
   render() {
@@ -152,13 +143,13 @@ class EditUsuario extends Component {
             />
           </div>
           <div className="mt-3">
-          <button type="submit" className="btn btn-primary mr-2">
-            Guardar
-          </button>
-          <button type="button" className="btn btn-danger mr-2" onClick={this.onCancel} >
-            Cancelar
-          </button>
-        </div>
+            <button type="submit" className="btn btn-primary mr-2">
+              Guardar
+            </button>
+            <button type="button" className="btn btn-danger mr-2" onClick={this.onCancel}>
+              Cancelar
+            </button>
+          </div>
         </form>
       </div>
     );

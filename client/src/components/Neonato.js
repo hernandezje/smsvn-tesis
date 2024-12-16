@@ -1,101 +1,88 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { getNeonatoData } from "./UserFunctions";
 
 class Neonato extends Component {
   constructor() {
     super();
     this.state = {
-      neonato: null, // Cambiamos a null para indicar que no hay datos inicialmente
-      error: null,   // Inicializamos el error como null
+      neonato: null,
+      error: null,
     };
 
-    this.onSubmit = this.onSubmit.bind(this);
-    this.handleRedirect = this.handleRedirect.bind(this); // Enlazamos el manejador del botón
-    this.handleModify = this.handleModify.bind(this); // Manejador para el botón Modificar
-  
-  }
-  onSubmit(e) {
-    e.preventDefault();
-  }
-  handleRedirect() {
-    // Redirigir al formulario de /newneonato
-    this.props.history.push(`/newneonato`);
+    this.handleRedirect = this.handleRedirect.bind(this);
+    this.handleModify = this.handleModify.bind(this);
   }
 
   componentDidMount() {
-    // Obtener el token del localStorage
-    const token = localStorage.usertoken;
+    this.fetchNeonatoData();
+  }
 
-    if (token) {
-      // Realizar la solicitud al backend para obtener los datos
-      axios
-        .get("/users/neonato", {
-          headers: { Authorization: token },
-        })
-        .then((response) => {
-          // Suponiendo que la respuesta es un array con un objeto
-          if (response.data && response.data.length > 0) {
-            this.setState({ neonato: response.data[0] }); // Guardar el primer objeto en el estado
-          } else {
-            this.setState({ error: "No se encontraron datos del neonato."});
-          }
-        })
-        .catch((err) => {
-          console.error("Error al cargar los datos del neonato:", err);
-          this.setState({ error: "Error al cargar los datos."});
-        });
-    } 
+  async fetchNeonatoData() {
+    try {
+      const token = localStorage.usertoken;
+      if (!token) throw new Error("Usuario no autenticado.");
+
+      const response = await getNeonatoData(token);
+      if (response && response.length > 0) {
+        this.setState({ neonato: response[0] });
+      } else {
+        this.setState({ error: "No se encontraron datos del neonato." });
+      }
+    } catch (error) {
+      console.error("Error al cargar los datos del neonato:", error.message);
+      this.setState({ error: "Error al cargar los datos." });
+    }
+  }
+
+  handleRedirect() {
+    this.props.history.push(`/newneonato`);
   }
 
   handleModify() {
-    // Redirige a una página de edición, enviando los datos del usuario
     const { neonato } = this.state;
     this.props.history.push({
       pathname: `/editNeonato`,
-      state: { neonato }, // Pasa el usuario actual al formulario de edición
+      state: { neonato },
     });
   }
-  
-  formatDate(dateString) {
-    // Convertir la cadena de fecha a un objeto Date
-    const date = new Date(dateString);
 
-    // Usar toLocaleString para formatear la fecha
+  formatDate(dateString) {
+    const date = new Date(dateString);
     return date.toLocaleString("es-AR", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
-      hour12: false, // 24-hour format
+      hour12: false,
     });
   }
 
   render() {
-    const { neonato, error } = this.state; // Extraemos los datos del estado
-    if (!neonato) {
-      
-      return (     
-        <div className="container-fluid">  
-            <div>
-              <h4 className="SinDatos">Sin datos del neonato! </h4>
-              <button
+    const { neonato, error } = this.state;
+
+    if (error) {
+      return (
+        <div className="container-fluid">
+          <h4 className="text-danger">{error}</h4>
+          <button
             type="button"
-            className="btn btn-lg btn-primary btn-block"
-            onClick={this.handleRedirect} // Asigna el manejador del clic
+            className="btn btn-primary btn-lg"
+            onClick={this.handleRedirect}
           >
-                Cargar Datos
-              </button>
-              
-            </div>
-          </div>
-          ); // Mensaje si no hay datos
+            Cargar Datos
+          </button>
+        </div>
+      );
     }
 
-    // Si hay datos
+    if (!neonato) {
+      return <h4>Cargando datos...</h4>;
+    }
+
     return (
       <div className="container-fluid">
-        <h1 className="h3 mb-3 font-weight-normal">Datos del neonato</h1>
+        <h1>Datos del neonato</h1>
         <table className="table">
           <tbody>
             <tr>
@@ -132,16 +119,12 @@ class Neonato extends Component {
             </tr>
           </tbody>
         </table>
-         {/* Botones Modificar */}
-         <div className="mt-3">
-          <button className="btn btn-primary mr-2" onClick={this.handleModify}>
-            Modificar
-          </button>
-        </div>
+        <button className="btn btn-primary" onClick={this.handleModify}>
+          Modificar
+        </button>
       </div>
     );
   }
-  
 }
 
 export default Neonato;

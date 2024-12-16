@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { generarReporte } from "./UserFunctions";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
@@ -9,19 +9,12 @@ class Reporte extends Component {
     modalMessage: "", // Mensaje para el modal
   };
 
-  generarPDF = async () => {
+  handleGenerarReporte = async () => {
     try {
-      // Solicitar los datos del reporte
-      const response = await axios.get("/users/generarReporte", {
-        headers: {
-          Authorization: localStorage.getItem("usertoken"), // Token de autorización
-        },
-      });
+      // Llamar a la función para obtener los datos del reporte
+      const { lactanteData, historialData } = await generarReporte();
+      console.log("Datos del reporte:", lactanteData, historialData);
 
-      // Extraer los datos de la respuesta
-      const { lactanteData, historialData } = response.data.reporte;
-      console.log("ver1:",response.data);
-      console.log("ver2:",lactanteData, historialData);
       // Verificar si los datos existen
       if (!lactanteData.length || !historialData.length) {
         alert("No hay datos disponibles para generar el reporte.");
@@ -85,27 +78,26 @@ class Reporte extends Component {
         doc.text(line, 10, startYAntecedentes + 10 + index * 6)
       );
 
+      // Tabla del historial de alertas
+      const startYAlertas = startYAntecedentes + 10 + datosAntecedentes.length * 6 + 20;
+      doc.setFont("helvetica", "bold"); 
+      doc.setFontSize(14);
+      doc.text("Historial de Alertas", 10, startYAlertas);
+      doc.setFont("helvetica", "normal");
+      doc.autoTable({
+        startY: startYAlertas + 10,
+        head: [["Fecha Inicio", "Fecha Fin", "Estado", "Valor Detectado", "Gravedad", "Tipo Sensor"]],
+        body: historialData.map((historial) => [
+          new Date(historial.Fecha_Inicio).toLocaleString(),
+          new Date(historial.Fecha_Fin).toLocaleString(),
+          historial.Estado,
+          historial.Valor_Detectado,
+          historial.Gravedad,
+          historial.Tipo_Sensor,
+        ]),
+      });
 
-       // Tabla del historial de alertas
-       const startYAlertas = startYAntecedentes + 10 + datosAntecedentes.length * 6 + 20;
-       doc.setFont("helvetica", "bold"); 
-       doc.setFontSize(14);
-       doc.text("Historial de Alertas", 10, startYAlertas);
-       doc.setFont("helvetica", "normal");
-       doc.autoTable({
-         startY: startYAlertas + 10,
-         head: [["Fecha Inicio", "Fecha Fin", "Estado", "Valor Detectado", "Gravedad", "Tipo Sensor"]],
-         body: historialData.map((historial) => [
-           new Date(historial.Fecha_Inicio).toLocaleString(),
-           new Date(historial.Fecha_Fin).toLocaleString(),
-           historial.Estado,
-           historial.Valor_Detectado,
-           historial.Gravedad,
-           historial.Tipo_Sensor,
-         ]),
-       });
-
-       // Finaliza el PDF
+      // Finaliza el PDF
       doc.save("reporte_neonato.pdf");
 
       this.setState({
@@ -129,22 +121,17 @@ class Reporte extends Component {
     const { showModal, modalMessage } = this.state;
     return (
       <div className="container-fluid mt-4">
-        {/* Sección de descripción */}
+        {/* Descripción */}
         <div className="mb-4">
           <h1 className="h3 mb-3 font-weight-normal">Reporte de Interés</h1>
           <p className="text-justify">
-            Genera un reporte detallado para el médico o interesados, proporcionando información clave sobre el comportamiento de los signos vitales del neonato en la última semana. El reporte incluye:
+            Genera un reporte detallado para el médico o interesados, proporcionando información clave sobre el comportamiento de los signos vitales del neonato en la última semana.
           </p>
-          <ul>
-            <li>Datos generales del neonato</li>
-            <li>Historial de estado de signos vitales</li>
-            <li>Registro de alertas detectadas</li>
-          </ul>
         </div>
 
-        {/* Botón para generar reporte */}
+        {/* Botón para generar el reporte */}
         <div className="text-center">
-          <button className="btn btn-primary btn-lg" onClick={this.generarPDF}>
+          <button className="btn btn-primary btn-lg" onClick={this.handleGenerarReporte}>
             Generar y Descargar Reporte
           </button>
         </div>
@@ -152,15 +139,11 @@ class Reporte extends Component {
         {/* Modal */}
         {showModal && (
           <div className="modal d-block" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Notificación</h5>
-                  <button
-                    type="button"
-                    className="close"
-                    onClick={this.closeModal}
-                  >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Notificación</h5>
+                  <button type="button" className="close" onClick={this.closeModal}>
                     <span>&times;</span>
                   </button>
                 </div>
@@ -168,11 +151,7 @@ class Reporte extends Component {
                   <p>{modalMessage}</p>
                 </div>
                 <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={this.closeModal}
-                  >
+                  <button type="button" className="btn btn-secondary" onClick={this.closeModal}>
                     Cerrar
                   </button>
                 </div>
