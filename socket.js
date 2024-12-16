@@ -4,7 +4,7 @@ const { getLatestSignosVitales, getAllSensores, getAlertas } = require("./models
 function setupWebSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://babyhelp.site:3000", 
+      origin: "http://smsvn.tesis.babyhelp.site:3000", 
       methods: ["GET", "POST"],
     },
   });

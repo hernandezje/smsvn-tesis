@@ -5,7 +5,7 @@ export const register = async (Contacto) => {
   try {
     const response = await axios
       .post(
-        "/users/register",
+        "'https://smsvn.tesis.babyhelp.site/users/register",
         { Contacto },
         {
           headers: {
@@ -29,7 +29,7 @@ export const login = async (user) => {
   try {
     const response = await axios
       .post(
-        "/users/login", 
+        "'https://smsvn.tesis.babyhelp.site/users/login", 
         JSON.stringify(user),
         { 
           headers: {
@@ -61,7 +61,7 @@ export const getAllContacts = async () => {
     }
     
     // Realizar la solicitud al backend
-    const response = await axios.get("/users/contactos", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/contactos", {
       headers: {
         Authorization: token, // Enviar el token en los headers
       },
@@ -86,7 +86,7 @@ export const getNeonatoData = async () => {
   }
 
   try {
-    const response = await axios.get("/users/neonato", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/neonato", {
       headers: { Authorization: token },
     });
     console.log("retorna:",response);
@@ -127,7 +127,7 @@ export const getAntecedentesData = async () => {
   }
 
   try {
-    const response = await axios.get("/users/antecedentes", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/antecedentes", {
       headers: { Authorization: token },
     });
     console.log("retorna:",response);
@@ -147,7 +147,7 @@ export const createAntecedentes = async (newAntecedentes) => {
   }
   try {
     const response = await axios
-      .post("/users/newantecedentes", newAntecedentes, {
+      .post("'https://smsvn.tesis.babyhelp.site/users/newantecedentes", newAntecedentes, {
         headers: { Authorization: token },
       });
     console.log("LLEGA2:", response);
@@ -171,7 +171,7 @@ export const getHistorial = async () => {
     }
     
     // Realizar la solicitud al backend
-    const response = await axios.get("/users/historial", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/historial", {
       headers: {
         Authorization: token, // Enviar el token en los headers
       },
@@ -203,7 +203,7 @@ export const getUserData = async () => {
       return null;
     }
   try {
-    const response = await axios.get(`/users/usuario/${idUsuario}`, {
+    const response = await axios.get(`'https://smsvn.tesis.babyhelp.site/users/usuario/${idUsuario}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -230,7 +230,7 @@ export const editUserData = async (idUsuario, updatedData) => {
     }
 
     const response = await axios.put(
-      `/users/editUsuario/${idUsuario}`,
+      `'https://smsvn.tesis.babyhelp.site/users/editUsuario/${idUsuario}`,
       updatedData, // Objeto con los campos a editar
       {
         headers: {
@@ -258,7 +258,7 @@ export const deleteUserAccount = async (idUsuario, password) => {
 
   try {
     const response = await axios.post(
-      `/users/delete/${idUsuario}`,
+      `'https://smsvn.tesis.babyhelp.site/users/delete/${idUsuario}`,
       { password }, // Enviar la contraseña en el cuerpo de la solicitud
       { headers: { Authorization: token } }
     );
@@ -280,7 +280,7 @@ export const getAlertasFiltradas = async (fechaInicio, fechaFin) => {
   }
 
   try {
-    const response = await axios.get("/users/alertas", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/alertas", {
       headers: { Authorization: token },
       params: { Fecha_Inicio: fechaInicio, Fecha_Fin: fechaFin },
     });
@@ -301,7 +301,7 @@ export const updateNeonato = async (id, updatedData) => {
     }
 
     const response = await axios.put(
-      `/users/editNeonato/${id}`, // URL con el ID
+      `'https://smsvn.tesis.babyhelp.site/users/editNeonato/${id}`, // URL con el ID
       updatedData, // Datos enviados en el cuerpo de la solicitud
       {
         headers: {
@@ -327,7 +327,7 @@ export const updateAntecedenteMedico = async (id, updatedData) => {
     }
 
     const response = await axios.put(
-      `/users/editAntecedenteMedico/${id}`, // URL con el ID
+      `'https://smsvn.tesis.babyhelp.site/users/editAntecedenteMedico/${id}`, // URL con el ID
       updatedData, // Datos enviados en el cuerpo de la solicitud
       {
         headers: {
@@ -353,7 +353,7 @@ export const generarReporte = async () => {
   }
 
   try {
-    const response = await axios.get("/users/generarReporte", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/generarReporte", {
       headers: { Authorization: token },
     });
     return response.data.reporte; // Devuelve el reporte al frontend
@@ -373,7 +373,7 @@ export const getSensores = async () => {
       return null;
     }
 
-    const response = await axios.get("/users/sensores", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/sensores", {
       headers: {
         Authorization: token,
       },
@@ -391,7 +391,7 @@ export const getSensores = async () => {
 // Función para obtener los últimos registros de signos vitales
 export const getLatestSignosVitales = async () => {
   try {
-    const response = await axios.get("/users/latest-signos-vitales");
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/latest-signos-vitales");
     if (response.status === 200) {
       return response.data;
     } else if (response.status === 404) {
@@ -416,7 +416,7 @@ export const getAlertas = async () => {
       console.error("No se encontró un token en el localStorage.");
       return null;
     }
-    const response = await axios.get("/users/latest-alertas", {
+    const response = await axios.get("'https://smsvn.tesis.babyhelp.site/users/latest-alertas", {
       headers: {
         Authorization: token,
       },

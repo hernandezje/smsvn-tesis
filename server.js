@@ -18,7 +18,7 @@ const server = http.createServer(app);
 // Configurar WebSocket
 setupWebSocket(server);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://babyhelp.site:${PORT}`);
+  console.log(`Servidor corriendo en http://smsvn.tesis.babyhelp.site:${PORT}`);
 });
