@@ -4,7 +4,7 @@ const { getLatestSignosVitales, getAllSensores, getAlertas } = require("./models
 function setupWebSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://smsvn.tesis.babyhelp.site:3000", 
+      origin: "httpss://babyhelp.site", 
       methods: ["GET", "POST"],
     },
   });
@@ -43,7 +43,7 @@ function setupWebSocket(server) {
     
     const intervalSensores = setInterval(emitirSensores, 5000); // Emitir datos cada 5 segundos
     const intervalSignosVitales = setInterval(emitirSignosVitales, 5000);
-    const intervalAlertas = setInterval(emitirAlertas, 2000); // Verifica nuevas alertas cada 2 segundos
+    const intervalAlertas = setInterval(emitirAlertas, 5000); // Verifica nuevas alertas cada 5 segundos
 
     socket.on("disconnect", () => {
       console.log("Cliente desconectado:", socket.id);

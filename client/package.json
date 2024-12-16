@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
-  "proxy": "https://smsvn.tesis.babyhelp.site",
+  "proxy": "https://78.142.242.115:3000",
   "browserslist": {
     "production": [
       ">0.2%",
