@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
 const db = mysql.createPool({
-  host: "srv1783.hstgr.io", // Cambia por tu host
+  host: "193.203.175.175", // Cambia por tu host
   user: "u158972839_root",      // Cambia por tu usuario
   password: "tesisBabyhelp_369",      // Cambia por tu contraseña
   database: "u158972839_babyhelpbd", // Cambia por el nombre de tu base de datos
