@@ -59,19 +59,21 @@ class Neonato extends Component {
   }
 
   render() {
-    const { neonato, error } = this.state;
+    const { neonato } = this.state;
 
-    if (error) {
+    if (!neonato) {
       return (
         <div className="container-fluid">
-          <h4 className="text-danger">{error}</h4>
+          <div>
+            <h4 className="SinDatos">Sin datos del neonato!</h4>
           <button
             type="button"
-            className="btn btn-primary btn-lg"
+            className="btn btn-lg btn-primary btn-block"
             onClick={this.handleRedirect}
           >
             Cargar Datos
           </button>
+        </div>
         </div>
       );
     }

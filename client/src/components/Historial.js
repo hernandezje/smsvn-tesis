@@ -9,7 +9,7 @@ const Historial = () => {
     const token = localStorage.getItem("usertoken");
 
     if (token) {
-      getHistorial() // Usar la función getHistorial importada
+      getHistorial()
         .then((data) => {
           setHistorial(data);
           setIsLoading(false);
@@ -19,13 +19,12 @@ const Historial = () => {
           setIsLoading(false);
         });
     } else {
-      // Si no hay token, podrías redirigir o manejar el error aquí
       console.error("No se encontró el token.");
     }
   }, []);
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
+    const date = dateString ? new Date(dateString) : new Date();
     return date.toLocaleString("es-AR", {
       year: "numeric",
       month: "2-digit",
@@ -36,16 +35,26 @@ const Historial = () => {
       hour12: false,
     });
   };
-
-  const handleAlertRedirect = (fechaInicio, fechaFin) => {
-    // Aquí puedes implementar redirección u otro comportamiento según el estado
-    // En lugar de history.push, podrías usar alguna lógica propia.
-    console.log(`Redirigiendo a alertas con fechas: ${fechaInicio} - ${fechaFin}`);
+  const formatFecha = (fechaISO) => {
+    const fecha = new Date(fechaISO);
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const dia = String(fecha.getDate()).padStart(2, "0");
+    const hora = String(fecha.getHours()).padStart(2, "0");
+    const minutos = String(fecha.getMinutes()).padStart(2, "0");
+    const segundos = String(fecha.getSeconds()).padStart(2, "0");
+  
+    return `${anio}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
   };
-
-  if (isLoading) {
-    return <p>Cargando historial...</p>;
-  }
+  
+  const handleAlertRedirect = (fechaInicio, fechaFin) => {
+    const fechaInicioFormatted = formatFecha(fechaInicio);
+    const fechaFinFormatted = fechaFin
+      ? formatFecha(fechaFin)
+      : formatFecha(new Date().toISOString());
+  
+    window.location.href = `/alertas?fechaInicio=${fechaInicioFormatted}&fechaFin=${fechaFinFormatted}`;
+  };
 
   return (
     <div className="container-fluid">
@@ -72,7 +81,10 @@ const Historial = () => {
                       <button
                         className="btn btn-sm btn-primary"
                         onClick={() =>
-                          handleAlertRedirect(item.Fecha_Inicio, item.Fecha_Fin)
+                          handleAlertRedirect(
+                            item.Fecha_Inicio,
+                            item.Fecha_Fin
+                          )
                         }
                       >
                         Ver

@@ -17,7 +17,7 @@ class Reporte extends Component {
 
       // Verificar si los datos existen
       if (!lactanteData.length || !historialData.length) {
-        alert("No hay datos disponibles para generar el reporte.");
+        alert("No hay datos suficientes disponibles para generar el reporte.");
         return;
       }
 

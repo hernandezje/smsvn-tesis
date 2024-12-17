@@ -283,21 +283,22 @@ Users.post("/delete/:idUsuario", async (req, res) => {
 });
 
 // Ruta para obtener alertas filtradas por fechas
-Users.get("/alertas", (req, res) => {
+Users.get("/alertas", async (req, res) => {
   const { fechaInicio, fechaFin } = req.query;
-  console.log("fechas",fechaInicio, fechaFin);
+  
+  // Verificar que las fechas estén presentes
   if (!fechaInicio || !fechaFin) {
     return res.status(400).json({ error: "Las fechas de inicio y fin son requeridas." });
   }
 
-  getAlertasFiltradas(fechaInicio, fechaFin, (err, alertas) => {
-    if (err) {
-      console.error("Error al obtener alertas filtradas:", err);
-      return res.status(500).json({ error: "Error interno del servidor." });
-    }
-
-    res.json(alertas);
-  });
+  try {
+    // Llamar a la función que consulta la base de datos y devuelve las alertas filtradas
+    const alertas = await getAlertasFiltradas(fechaInicio, fechaFin);
+    res.json(alertas); // Devolver las alertas filtradas al frontend
+  } catch (err) {
+    console.error("Error al obtener alertas filtradas:", err);
+    return res.status(500).json({ error: "Error interno del servidor." });
+  }
 });
 
 

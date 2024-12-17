@@ -281,26 +281,21 @@ export const deleteUserAccount = async (idUsuario, password) => {
 };
 
 
-// Función para obtener alertas filtradas por rango de fechas
+// Función para obtener las alertas filtradas por fecha
 export const getAlertasFiltradas = async (fechaInicio, fechaFin) => {
-  const token = localStorage.getItem("usertoken");
-
-  if (!token) {
-    throw new Error("Token no encontrado. Inicie sesión nuevamente.");
-  }
-
   try {
     const response = await axios.get("http://localhost:5000/users/alertas", {
-      headers: { Authorization: token },
-      params: { Fecha_Inicio: fechaInicio, Fecha_Fin: fechaFin },
+      params: {
+        fechaInicio,
+        fechaFin,
+      },
     });
-    console.log("Datos de alertas filtradas:", response.data);
-    return response.data;
+    return response.data; // Devuelve las alertas
   } catch (err) {
-    console.error("Error al obtener alertas filtradas:", err);
-    throw err;
+    throw new Error("Error al cargar las alertas.");
   }
 };
+
 
 // Función para actualizar datos de un neonato
 export const updateNeonato = async (id, updatedData) => {

@@ -146,7 +146,7 @@ const createAntecedentes = (antecedentesData, callback) => {
 const getAllHistorial = async () => {
   const query = `
   SELECT 
-  Fecha_Inicio, Fecha_Fin, Estado
+  Fecha_Inicio, Fecha_Fin, Estado, Alerta_idAlerta
   FROM historial
   `;
   try {
@@ -296,15 +296,17 @@ const deleteUser = async (idUsuario) => {
   }
 };
 
-//filtrar y traer alertas
-const getAlertasFiltradas = (fechaInicio, fechaFin, callback) => {
+
+// Función que consulta las alertas filtradas en la base de datos
+const getAlertasFiltradas = async (fechaInicio, fechaFin) => {
+  console.log("bd:",fechaInicio, fechaFin);
   const query = `
     SELECT 
       alerta.idAlerta, 
       alerta.Valor_Detectado, 
       alerta.Fecha_Hora, 
       alerta.Gravedad, 
-      alerta.Sensor_idSensor,
+      alerta.Sensor_idSensor, 
       sensor.Tipo_Sensor, 
       sensor.Modelo, 
       sensor.Rango_Medicion, 
@@ -312,18 +314,20 @@ const getAlertasFiltradas = (fechaInicio, fechaFin, callback) => {
       sensor.Dispositivo_idDispositivo
     FROM alerta
     JOIN sensor ON alerta.Sensor_idSensor = sensor.idSensor
-    WHERE alerta.Fecha_Hora BETWEEN ? AND ?
-    ORDER BY alerta.Fecha_Hora ASC;
+    WHERE alerta.Fecha_Hora >= ? AND alerta.Fecha_Hora < ?;
   `;
-
-  db.query(query, [fechaInicio, fechaFin], (err, results) => {
-    if (err) {
-      console.error("Error al obtener alertas filtradas:", err);
-      return callback(err, null);
-    }
-    callback(null, results);
-  });
+  
+  try {
+    const [result] = await db.promise().query(query, [fechaInicio, fechaFin]);
+    return result; // Retorna las alertas filtradas
+  } catch (err) {
+    console.error("Error al obtener las alertas desde la base de datos:", err.message);
+    throw err;
+  }
 };
+
+
+
 
 // actualizar datos de un neonato
 const updateNeonato = async (idLactante, neonatoData) => {
