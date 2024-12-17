@@ -4,7 +4,7 @@ const { getLatestSignosVitales, getAllSensores, getAlertas } = require("./models
 function setupWebSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000", // Cambiado a 3000 porque ahí corre el cliente
+      origin: "http://babyhelp.site", // Cambiado a 3000 porque ahí corre el cliente
       methods: ["GET", "POST"],
     },
   });
