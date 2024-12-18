@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
-  "proxy": "https://78.142.242.115",
+  "proxy": "http://78.142.242.115",
   "browserslist": {
     "production": [
       ">0.2%",
